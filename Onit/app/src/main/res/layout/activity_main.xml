@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#222333"
+    tools:context="com.example.kolibreath.onit.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_for_loginActivity"
+        android:background="#222333"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:textColor="#f9f9f9"
+            android:text="登录On it！"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:paddingRight="30dp"
+        android:paddingLeft="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+    <EditText
+        android:id="@+id/users_name"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="#fdfdfe"
+        android:theme="@style/MyEditText"
+        android:layout_marginTop="130dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+        <TextView
+            android:layout_marginTop="172dp"
+            android:textColor="@color/pureGray"
+            android:text="4-20字符，由汉字、数字英文及下划线组成"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/users_password"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="#fdfdfe"
+            android:theme="@style/MyEditText"
+            android:layout_marginTop="220dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_marginTop="262dp"
+            android:textColor="@color/pureGray"
+            android:text="8-16字符"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_centerHorizontal="true"
+            android:id="@+id/login_button"
+            android:text="登录"
+            android:textSize="20dp"
+            android:background="@drawable/login_button"
+            android:layout_marginLeft="102dp"
+            android:layout_marginTop="320dp"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" />
+ <RelativeLayout
+     android:layout_marginTop="380dp"
+     android:orientation="horizontal"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="80dp"
+            android:id="@+id/sample_qustion_hasacount"
+            android:text="还没有账号吗？"
+            android:textColor="@color/pureWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+     <TextView
+         android:layout_toRightOf="@id/sample_qustion_hasacount"
+         android:id="@+id/clicktoregister"
+         android:clickable="true"
+         android:textColor="@color/pureOrange"
+         android:text="注册账号"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" />
+ </RelativeLayout>
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/muxiDesign1"
+        android:text="木犀团队"
+        android:textSize="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="510dp"
+        android:textColor="@color/pureOrange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/muxiPresent1"
+        android:text="出品"
+        android:textSize="16dp"
+        android:layout_marginTop="510dp"
+        android:textColor="@color/pureWhite"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/muxiDesign1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

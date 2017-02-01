@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="pureWhite">#f9f7f7</color>
+    <color name="pureGray">#606161</color>
+    <color name="pureOrange">#FBC02D </color>
+    <color name="pureAmber">#222333 </color>
+    <color name="pureLowerAmber">#343655</color>
+    <color name="pureBlack">#1d1d1e</color>
+</resources>

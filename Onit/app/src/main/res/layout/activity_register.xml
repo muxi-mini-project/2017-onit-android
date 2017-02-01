@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/pureAmber"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginLeft="130dp"
+            android:src="@mipmap/onit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="@color/pureWhite"
+            android:textSize="@dimen/OnitSize"
+            android:text="On it !"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/thereisabitmap"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/onit"
+        android:layout_width="140dp"
+        android:layout_height="140dp" />
+        <TextView
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textSize="16dp"
+            android:textColor="@color/pureWhite"
+            android:text="与好友分享计划，共同监督完成任务"
+            android:layout_below="@+id/thereisabitmap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+   <RelativeLayout
+       android:paddingRight="30dp"
+       android:paddingLeft="30dp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"
+       android:layout_centerHorizontal="true">
+
+    <EditText
+        android:id="@+id/registerUsername"
+        android:theme="@style/MyEditText"
+        android:layout_marginTop="250dp"
+        android:textColor="@color/pureWhite"
+        android:hint="昵称"
+        android:textColorHint="@color/pureWhite"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+       <TextView
+           android:layout_below="@+id/registerUsername"
+           android:textColor="@color/pureGray"
+           android:text="4-20字符，由汉字、数字英文及下划线组成"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+       <EditText
+           android:id="@+id/registerUsersPassword"
+           android:hint="密码"
+           android:textColorHint="@color/pureWhite"
+           android:textSize="20dp"
+           android:textColor="@color/pureWhite"
+           android:theme="@style/MyEditText"
+           android:layout_marginTop="325dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           />
+
+       <EditText
+           android:id="@+id/confirmPassword"
+           android:theme="@style/MyEditText"
+           android:textSize="20dp"
+           android:textColorHint="@color/pureWhite"
+           android:layout_marginTop="385dp"
+           android:hint="确认密码"
+           android:textColor="@color/pureWhite"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+       <Button
+           android:textStyle="bold"
+           android:textSize="20dp"
+           android:text="注册"
+           android:background="@drawable/login_button"
+           android:layout_marginTop="430dp"
+           android:layout_centerHorizontal="true"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+
+       <TextView
+           android:textColor="@color/pureGray"
+           android:text="8-16字符"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/registerUsersPassword"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentStart="true"
+           android:id="@+id/textView" />
+   </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="490dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="130dp"
+            android:id="@+id/sample_qustion_alreadyhas"
+            android:text="已有账号？"
+            android:textColor="@color/pureWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_toRightOf="@id/sample_qustion_alreadyhas"
+            android:id="@+id/clicktoLogin"
+            android:clickable="true"
+            android:textColor="@color/pureOrange"
+            android:text="前去登录"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/muxiDesign2"
+        android:text="木犀团队"
+        android:textSize="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="540dp"
+        android:textColor="@color/pureOrange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/muxiPresent2"
+        android:text="出品"
+        android:textSize="16dp"
+        android:layout_marginTop="540dp"
+        android:textColor="@color/pureWhite"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/muxiDesign2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
