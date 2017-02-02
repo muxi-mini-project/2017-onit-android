@@ -1,5 +1,6 @@
 package com.example.kolibreath.onit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -24,9 +25,11 @@ public class OnitMainActivity extends AppCompatActivity {
         gototheUserCenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent intent = new Intent(this,);
+                Intent intent = new Intent(OnitMainActivity.this,UserMainActivity.class);
+                startActivity(intent);
             }
         });
+
         firstFAB.setOnClickListener(new View.OnClickListener() {
             int clickState = 1;
             @Override

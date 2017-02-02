@@ -6,10 +6,15 @@
         <item name="colorPrimary">@color/pureAmber</item>
         <item name="colorPrimaryDark">@color/pureAmber</item>
         <item name="colorAccent">@color/pureOrange</item>
+        <item name="android:textColorPrimary">@color/pureWhite</item>  
+      <item name="android:textColorSecondary">@color/pureWhite</item>  
     </style>
     <style name="MyEditText" parent="Theme.AppCompat.Light">
          <item name="colorControlNormal">@color/pureGray</item>
          <item name="colorControlActivated">@color/pureWhite</item>
     </style>
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">  
+        <item name="actionMenuTextColor">@color/pureBlack</item>
+    </style>  
 
 </resources>
