@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@color/pureAmber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/display_search_user_avatar"
+            android:background="@drawable/floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/search_user_id"
+                android:text="我是十个字以内的名称"
+                android:textSize="16dp"
+                android:textColor="@color/pureWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="8dp"
+                android:text="等级 ："
+                android:textColor="@color/pureGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/search_user_rank"
+                    android:textColor="@color/pureGray"
+                    android:text="登峰造极"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <Button
+            android:background="@drawable/confirm_attention_at__search_friends"
+            android:layout_alignParentRight="true"
+            android:text="关注"
+            android:textColor="@color/pureOrange"
+            android:textSize="15dp"
+            android:layout_centerVertical="true"
+            android:layout_width="70dp"
+            android:layout_height="40dp" />
+    </RelativeLayout>
+
+</RelativeLayout>
