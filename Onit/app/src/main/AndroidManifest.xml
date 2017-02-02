@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".OnitMainActivity"/>
-        <activity android:name=".UserMainActivity"></activity>
+        <activity android:name=".UserMainActivity"/>
+        <activity android:name=".SearchforBBFActivity"/>
     </application>
 
 </manifest>

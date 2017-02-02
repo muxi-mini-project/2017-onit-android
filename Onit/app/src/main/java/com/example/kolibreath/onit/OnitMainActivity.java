@@ -57,6 +57,13 @@ public class OnitMainActivity extends AppCompatActivity {
                 }
             }
         });
+        thirdFAb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OnitMainActivity.this,SearchforBBFActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

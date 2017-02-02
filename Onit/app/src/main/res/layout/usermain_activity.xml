@@ -5,9 +5,91 @@
     <android.support.v7.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_for_usercenter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/pureAmber"
         app:popupTheme="@style/Theme.AppCompat.NoActionBar" />
+
+    <RelativeLayout
+        android:background="@color/pureAmber"
+        android:layout_below="@id/toolbar_for_usercenter"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <ImageView
+            android:id="@+id/user_avatar"
+            android:background="@mipmap/onit"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp" />
+        <TextView
+            android:id="@+id/users_name_display"
+            android:layout_toRightOf="@+id/user_avatar"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="35dp"
+            android:text="我是十个字以内的名字"
+            android:textSize="16dp"
+            android:textColor="@color/pureWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/rank"
+            android:layout_below="@+id/users_name_display"
+            android:layout_toRightOf="@+id/user_avatar"
+            android:text="等级"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/pureWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_below="@+id/users_name_display"
+            android:textColor="@color/pureWhite"
+            android:layout_toRightOf="@id/rank"
+            android:layout_marginLeft="15dp"
+            android:text="炉火纯青"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/attention"
+            android:layout_toRightOf="@+id/user_avatar"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/rank"
+            android:text="关注"
+            android:textColor="@color/pureWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/attention_number"
+            android:layout_toRightOf="@id/attention"
+            android:layout_below="@id/rank"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:text="22"
+            android:textColor="@color/pureWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/fans"
+            android:layout_toRightOf="@+id/attention_number"
+            android:layout_below="@+id/rank"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:text= "粉丝"
+            android:textColor="@color/pureWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/fans_number"
+            android:layout_toRightOf="@+id/fans"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@+id/rank"
+            android:layout_marginTop="15dp"
+            android:text="35"
+            android:textColor="@color/pureWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 </RelativeLayout>

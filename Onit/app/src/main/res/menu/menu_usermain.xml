@@ -2,8 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myapplication.MainActivity">
-    <item android:id="@+id/action_settings"
+    <item android:id="@+id/set_avatar"
         android:orderInCategory="100"
-        android:title="设置"
+        android:title="编辑头像"
+        app:showAsAction="never" />
+    <item android:id="@+id/logout"
+        android:orderInCategory="100"
+        android:title="退出登录"
         app:showAsAction="never" />
 </menu>
