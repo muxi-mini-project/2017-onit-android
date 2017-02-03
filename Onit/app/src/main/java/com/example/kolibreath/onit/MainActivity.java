@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void matchUserNameAndPassWord() {
-        //先设置为正确
+        //先设置为正确 测试登录之后的界面
         final boolean matches = true;
         Button readytologin = (Button) findViewById(R.id.login_button);
         readytologin.setOnClickListener(new View.OnClickListener() {

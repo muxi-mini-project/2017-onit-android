@@ -1,12 +1,16 @@
 package com.example.kolibreath.onit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.List;
 
 /**
  * Created by kolibreath on 2017/2/1.
@@ -17,6 +21,7 @@ public class OnitMainActivity extends AppCompatActivity {
     private void initWiget(){
         ImageButton gototheUserCenter = (ImageButton) findViewById(R.id.userCenter);
         FloatingActionButton firstFAB = (FloatingActionButton) findViewById(R.id.firstFAB);
+
         final FloatingActionButton secondFAB = (FloatingActionButton) findViewById(R.id.secondFAB);
         final FloatingActionButton thirdFAb = (FloatingActionButton) findViewById(R.id.thirdFAB);
         final TextView assign_onit = (TextView) findViewById(R.id.assign_onit);
@@ -57,6 +62,13 @@ public class OnitMainActivity extends AppCompatActivity {
                 }
             }
         });
+        secondFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OnitMainActivity.this,CreateNewDongtai.class);
+                startActivity(intent);
+            }
+        });
         thirdFAb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,13 +77,21 @@ public class OnitMainActivity extends AppCompatActivity {
             }
         });
     }
-
-
+    private List<UserInformation> userData = null;
+    private ListView listView=null;
+    private FriendsUsedDongtaiAdapter adapter = null;
+    private Context context;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onitdongtai);
+        context = OnitMainActivity.this;
+        listView = (ListView) findViewById(R.id.uesrDongTaiList);
+        userData.add(new UserInformation("石泽远","我来测试一下","2017年4月1日",
+                "明年",4,0,10,"ok"));
 
+        adapter = new FriendsUsedDongtaiAdapter((List<UserInformation>) userData,R.layout.onitdongtai_item,context);
+        listView.setAdapter(adapter);
         initWiget();
     }
 }

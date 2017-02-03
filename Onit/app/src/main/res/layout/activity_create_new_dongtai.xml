@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/pureAmber"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_for_createdongtai"
+        android:background="@color/pureLowerAmber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/text_display_in_toolbar"
+            android:textSize="23dp"
+            android:textColor="@color/pureWhite"
+            android:text="2017年12月12日周四"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+       <ImageButton
+           android:layout_marginLeft="20dp"
+           android:background="@mipmap/ic_done_green_18dp"
+           android:layout_width="26dp"
+           android:layout_height="25dp" />
+
+    </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/date_icon"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="25dp"
+            android:background="@mipmap/ic_date_range_white_24dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <TextView
+            android:id="@+id/dealine_text_button"
+            android:layout_toRightOf="@+id/date_icon"
+            android:clickable="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="89dp"
+            android:textSize="20dp"
+            android:text="选择截止日期"
+            android:textColor="@color/pureGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/calendarview_layout"
+        android:background="@color/pureAmber"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="30dp"
+       android:layout_centerHorizontal="true"
+        android:layout_width="348dp"
+        android:layout_height="680dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="550dp">
+        <TextView
+            android:id="@+id/dayoftheweek"
+            android:layout_centerHorizontal="true"
+            android:text="Sunday"
+            android:textSize="20dp"
+            android:textColor="@color/pureWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/month"
+            android:textSize="26dp"
+            android:textColor="@color/pureWhite"
+            android:text="OCT"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/dayofthemonth"
+            android:text="30"
+            android:textStyle="bold"
+            android:textSize="69dp"
+            android:textColor="@color/pureWhite"
+            android:layout_marginTop="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/year"
+            android:layout_marginTop="140dp"
+            android:text="1963"
+            android:textColor="@color/pureWhite"
+            android:textSize="25dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+   <CalendarView
+       android:layout_marginLeft="30dp"
+       android:background="@color/pureLowerAmber"
+       android:id="@+id/calendar"
+       android:layout_marginTop="180dp"
+       android:layout_width="300dp"
+       android:layout_height="300dp">
+   </CalendarView>
+        <RelativeLayout
+            android:background="@color/pureLowerAmber"
+            android:layout_marginLeft="30dp"
+            android:layout_below="@+id/calendar"
+            android:layout_width="300dp"
+            android:layout_height="30dp">
+
+       <TextView
+           android:id="@+id/dongtai_canceled"
+           android:clickable="true"
+           android:text="取消"
+           android:textColor="@color/pureWhite"
+           android:textSize="19dp"
+           android:layout_marginLeft="200dp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/dongtai_assure"
+            android:clickable="true"
+            android:text="确定"
+            android:textColor="@color/pureOrange"
+            android:textSize="19dp"
+            android:layout_marginLeft="20dp"
+           android:layout_toRightOf="@+id/dongtai_canceled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
