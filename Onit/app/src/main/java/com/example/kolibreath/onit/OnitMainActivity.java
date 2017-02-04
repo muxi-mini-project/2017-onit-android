@@ -1,6 +1,5 @@
 package com.example.kolibreath.onit;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +17,7 @@ import java.util.List;
  */
 
 public class OnitMainActivity extends AppCompatActivity {
+private List<Userinfo> userinfolist = new ArrayList<>();
 
     private void initWiget(){
         ImageButton gototheUserCenter = (ImageButton) findViewById(R.id.userCenter);
@@ -77,21 +78,20 @@ public class OnitMainActivity extends AppCompatActivity {
             }
         });
     }
-    private List<UserInformation> userData = null;
-    private ListView listView=null;
-    private FriendsUsedDongtaiAdapter adapter = null;
-    private Context context;
+    private void initUserDongtaiData(){
+        Userinfo userinfo1 = new Userinfo("石泽远",R.mipmap.ic_launcher,"2017/2.4","fuck u",2,3,"2017/2.13");
+        userinfolist.add(userinfo1);
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onitdongtai);
-        context = OnitMainActivity.this;
-        listView = (ListView) findViewById(R.id.uesrDongTaiList);
-        userData.add(new UserInformation("石泽远","我来测试一下","2017年4月1日",
-                "明年",4,0,10,"ok"));
+        ListView listView = (ListView) findViewById(R.id.uesrDongTaiList);
 
-        adapter = new FriendsUsedDongtaiAdapter((List<UserInformation>) userData,R.layout.onitdongtai_item,context);
-        listView.setAdapter(adapter);
+        initUserDongtaiData();
         initWiget();
+
+        UserInfoAdapter adapter = new UserInfoAdapter(OnitMainActivity.this,R.layout.onitdongtai_item,userinfolist);
+        listView.setAdapter(adapter);
     }
 }
