@@ -14,7 +14,8 @@ public class Userinfo {
     public String dongtaiDeadline;
     public int userOnitStatus;
 
-    public Userinfo(String username,int userAvatar,String dongtaitime,String content,int commentsNumber,int favorNumber,String dongtaiDeadline){
+    public Userinfo(String username,int userAvatar,String dongtaitime,String content,int commentsNumber,int favorNumber,String dongtaiDeadline,
+                    int userOnitStatus){
         this.username = username;
         this.userAvatar = userAvatar;
         this.dongtaitime = dongtaitime;
@@ -22,6 +23,7 @@ public class Userinfo {
         this.commentsNumber = commentsNumber;
         this.favorNumber = favorNumber;
         this.dongtaiDeadline = dongtaiDeadline;
+        this.userOnitStatus = userOnitStatus;
     }
     public String getUsername(){
         return  username;
@@ -44,5 +46,6 @@ public class Userinfo {
     public int getFavorNumber(){
         return favorNumber;
     }
+    public int getUserOnitStatus(){return  userOnitStatus;}
 
 }
