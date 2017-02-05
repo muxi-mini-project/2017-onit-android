@@ -4,5 +4,5 @@
  主要是学习处理了Theme，textView 部分实现点击
  （2.2）上午 处理了overflow 和 menu颜色和设计稿不服的问题 自定义控件的一些颜色 总是有一些麻烦，，
  这个 需要在 values - style - 中定义 textcolorprimary / textcolorsecondary 然后再toolbar的布局文件中加入 app:popupTheme="@style/Theme.AppCompat.NoActionBar" 即可
- 
+ (2.5)下午 ui基本写完了 晚上回去再修改一下细节 等着和后端商量一下 可以写网络请求了
  
