@@ -16,7 +16,7 @@ public class UserMainActivity extends AppCompatActivity{
     private void initWidget(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_for_usercenter);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("");
+        toolbar.setTitle("123");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }

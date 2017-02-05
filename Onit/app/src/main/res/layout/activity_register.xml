@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/registerXML"
     android:layout_width="match_parent"
     android:background="@color/pureAmber"
     android:layout_height="match_parent">
@@ -49,7 +50,7 @@
        android:layout_centerHorizontal="true">
 
     <EditText
-        android:id="@+id/registerUsername"
+        android:id="@+id/registerUsername1"
         android:theme="@style/MyEditText"
         android:layout_marginTop="250dp"
         android:textColor="@color/pureWhite"
@@ -59,25 +60,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
        <TextView
-           android:layout_below="@+id/registerUsername"
+           android:layout_below="@+id/registerUsername1"
            android:textColor="@color/pureGray"
            android:text="4-20字符，由汉字、数字英文及下划线组成"
            android:layout_width="match_parent"
            android:layout_height="wrap_content" />
        <EditText
-           android:id="@+id/registerUsersPassword"
+           android:id="@+id/registerUsersPassword2"
            android:hint="密码"
            android:textColorHint="@color/pureWhite"
            android:textSize="20dp"
            android:textColor="@color/pureWhite"
            android:theme="@style/MyEditText"
-           android:layout_marginTop="325dp"
+           android:layout_marginTop="320dp"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            />
 
        <EditText
-           android:id="@+id/confirmPassword"
+           android:id="@+id/registerConfirmPassword3"
            android:theme="@style/MyEditText"
            android:textSize="20dp"
            android:textColorHint="@color/pureWhite"
@@ -87,6 +88,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content" />
        <Button
+           android:id="@+id/registerForSure"
            android:textStyle="bold"
            android:textSize="20dp"
            android:text="注册"
@@ -101,7 +103,7 @@
            android:text="8-16字符"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:layout_below="@+id/registerUsersPassword"
+           android:layout_below="@+id/registerUsersPassword2"
            android:layout_alignParentLeft="true"
            android:layout_alignParentStart="true"
            android:id="@+id/textView" />

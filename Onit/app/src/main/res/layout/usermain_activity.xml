@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:background="@color/pureAmber"
         app:popupTheme="@style/Theme.AppCompat.NoActionBar" />
-
     <RelativeLayout
         android:background="@color/pureAmber"
         android:layout_below="@id/toolbar_for_usercenter"

@@ -17,7 +17,6 @@ public class SearchforBBFActivity extends AppCompatActivity{
     private void initWidget(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_for_friends_search);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(" ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //设置searchView相关细节
         SearchView searchView = (SearchView) findViewById(R.id.searchView_for_friends);

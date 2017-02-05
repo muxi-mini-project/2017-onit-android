@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,19 +34,43 @@ public class UserInfoAdapter extends ArrayAdapter<Userinfo>{
         TextView userName  = (TextView) view.findViewById(R.id.userName);
         TextView dongtaiTime = (TextView) view.findViewById(R.id.dongtaiTime);
         TextView content = (TextView) view.findViewById(R.id.userDongtaiContent);
-        TextView favorNumber = (TextView) view.findViewById(R.id.likeNumber);
-        TextView commentsNumber  = (TextView) view.findViewById(R.id.commentsNumber);
         TextView deadLine = (TextView) view.findViewById(R.id.dongtaiDeadlineDate);
+        TextView favorNumbers = (TextView) view.findViewById(R.id.favorNumbers);
+        TextView commentsNumbers = (TextView) view.findViewById(R.id.commentsNumbers);
+
+        final ImageButton imageButton1 = (ImageButton) view.findViewById(R.id.favor_or_not1);
+        final ImageButton imageButton2 = (ImageButton) view.findViewById(R.id.favor_or_not2);
+        imageButton1.setOnClickListener(new View.OnClickListener() {
+            int clickstatus =1;
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.favor_or_not1:
+                        if (clickstatus==1){
+                            imageButton2.setVisibility(View.VISIBLE);
+                            clickstatus=0;
+                        }
+                        break;
+                }
+            }
+
+        });
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageButton2.setVisibility(View.GONE);
+            }
+        });
 
         userAvatar.setImageResource(info.getUserAvatar());
         userName.setText(info.getUsername());
         dongtaiTime.setText(info.getDongtaitime());
         content.setText(info.getContent());
-        favorNumber.setText(info.getFavorNumber());
-        commentsNumber.setText(info.getCommentsNumber());
         deadLine.setText(info.getDongtaiDeadline());
+       // favorNumbers.setText(info.getFavorNumber());
+        //commentsNumbers.setText(info.getCommentsNumber());
 
 
-        return convertView;
+        return view;
     }
 }

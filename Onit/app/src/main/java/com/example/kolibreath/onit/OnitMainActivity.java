@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,8 +18,9 @@ import java.util.List;
  */
 
 public class OnitMainActivity extends AppCompatActivity {
-private List<Userinfo> userinfolist = new ArrayList<>();
 
+
+    private List<Userinfo> userinfolist = new ArrayList<>();
     private void initWiget(){
         ImageButton gototheUserCenter = (ImageButton) findViewById(R.id.userCenter);
         FloatingActionButton firstFAB = (FloatingActionButton) findViewById(R.id.firstFAB);
@@ -79,8 +81,13 @@ private List<Userinfo> userinfolist = new ArrayList<>();
         });
     }
     private void initUserDongtaiData(){
-        Userinfo userinfo1 = new Userinfo("石泽远",R.mipmap.ic_launcher,"2017/2.4","fuck u",2,3,"2017/2.13");
+        Userinfo userinfo1 = new Userinfo("石泽远",R.mipmap.ic_launcher,"2017/2.4","test",2,3,"2017/2.13");
         userinfolist.add(userinfo1);
+        Userinfo userinfo2 = new Userinfo("石泽远",R.mipmap.ic_launcher,"2017/2.4","test",2,3,"2017/2.13");
+        userinfolist.add(userinfo2);
+        Userinfo userinfo3 = new Userinfo("石泽远",R.mipmap.ic_launcher,"2017/2.4","test",2,3,"2017/2.13");
+        userinfolist.add(userinfo3);
+
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,5 +100,11 @@ private List<Userinfo> userinfolist = new ArrayList<>();
 
         UserInfoAdapter adapter = new UserInfoAdapter(OnitMainActivity.this,R.layout.onitdongtai_item,userinfolist);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
 }

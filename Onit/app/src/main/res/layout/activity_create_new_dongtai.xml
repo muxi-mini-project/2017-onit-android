@@ -9,18 +9,30 @@
         android:background="@color/pureLowerAmber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/text_display_in_toolbar"
-            android:textSize="23dp"
-            android:textColor="@color/pureWhite"
-            android:text="2017年12月12日周四"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-       <ImageButton
-           android:layout_marginLeft="20dp"
-           android:background="@mipmap/ic_done_green_18dp"
-           android:layout_width="26dp"
-           android:layout_height="25dp" />
+        <LinearLayout
+            android:paddingRight="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/text_display_in_toolbar"
+                android:textSize="23dp"
+                android:textColor="@color/pureWhite"
+                android:text="2017年12月12日周四"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_marginTop="5dp"
+                android:textColor="@color/pureBlack"
+                android:text="确定"
+                android:id="@+id/dongtaifinished"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/login_button"
+                android:layout_width="50dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
 
     </android.support.v7.widget.Toolbar>
     <RelativeLayout
@@ -43,6 +55,32 @@
             android:text="选择截止日期"
             android:textColor="@color/pureGray"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginTop="140dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabIndicatorColor="@color/pureWhite"
+            app:tabSelectedTextColor="@color/pureOrange"
+            app:tabMode="fixed"
+            app:tabGravity="center"
+            />
+        <ImageView
+            android:layout_marginTop="55dp"
+            android:background="@color/pureLowerAmber"
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+        <EditText
+            android:layout_marginTop="70dp"
+            android:hint="说说你的计划吧！"
+            android:textColorHint="@color/pureGray"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <RelativeLayout
@@ -131,5 +169,54 @@
             android:layout_height="wrap_content" />
         </RelativeLayout>
     </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/dialog"
+        android:visibility="gone"
+        android:background="@drawable/dialog"
+        android:layout_centerInParent="true"
+        android:layout_width="350dp"
+        android:layout_height="250dp">
+        <TextView
+            android:layout_marginTop="85dp"
+            android:text=""
+            android:textSize="20dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/displayDate"
+            android:textColor="@color/pureOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textViewNegative"
+            android:clickable="true"
+            android:text="考虑片刻"
+            android:textColor="@color/pureWhite"
+            android:textSize="25dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginLeft="45dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textViewPositive"
+            android:clickable="true"
+            android:text="洒家确定"
+            android:textColor="@color/pureWhite"
+            android:textSize="25dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginLeft="215dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_marginTop="180dp"
+            android:background="@color/pureOrange"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
+        <ImageView
+            android:layout_marginTop="183dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/pureOrange"
+            android:layout_width="4dp"
+            android:layout_height="64dp" />
+
     </RelativeLayout>
 </RelativeLayout>
