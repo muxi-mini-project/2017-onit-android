@@ -1,6 +1,8 @@
 package com.example.kolibreath.onit;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -27,11 +29,16 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
     private RelativeLayout relativeLayout;
     private TextView year,dayoftheweek,month,dateofthemonth,textdisplayontoolbar;
     private TabLayout tabLayout;
+    //datespecfic表示 tab上显示的标签 具体时间 比如说 2017/2/25
     private String dateSpecific;
+    private Button save;
+    private TextView ettext;
+    private SQLiteDatabase dbWriter;
+    private NotesDB notesDB;
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.dealine_text_button:
                 relativeLayout.setVisibility(View.VISIBLE);
                 break;
@@ -39,30 +46,17 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
                 relativeLayout.setVisibility(View.GONE);
                 break;
             case R.id.dongtai_assure:
-                final String str [] = {dateSpecific};
+                final String str[] = {dateSpecific};
                 tabLayout = (TabLayout) findViewById(R.id.tablayout);
-                for(int i=0; i<str.length;i++){
+                for (int i = 0; i < str.length; i++) {
                     tabLayout.addTab(tabLayout.newTab().setText(str[i]));
                 }
                 relativeLayout.setVisibility(View.GONE);
-                tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                    @Override
-                    public void onTabSelected(TabLayout.Tab tab) {
-
-                    }
-
-                    @Override
-                    public void onTabUnselected(TabLayout.Tab tab) {
-
-                    }
-
-                    @Override
-                    public void onTabReselected(TabLayout.Tab tab) {
-
-                    }
-                });
                 break;
-
+            case  R.id.save:
+                addDB();
+                finish();
+                break;
         }
     }
 
@@ -70,6 +64,7 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_for_createdongtai);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ettext = (TextView) findViewById(R.id.ettext);
 
         TextView dongtai_canceled = (TextView) findViewById(R.id.dongtai_canceled);
         TextView dongtai_assure = (TextView) findViewById(R.id.dongtai_assure);
@@ -100,11 +95,13 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
         });
 
 
+        save = (Button) findViewById(R.id.save);
         TextView textView = (TextView) findViewById(R.id.dealine_text_button);
         relativeLayout = (RelativeLayout) findViewById(R.id.calendarview_layout);
         textView.setOnClickListener(this);
         dongtai_assure.setOnClickListener(this);
         dongtai_canceled.setOnClickListener(this);
+        save.setOnClickListener(this);
     }
 
     private void setTextTime(){
@@ -125,6 +122,20 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
         year.setText(str1c);
     }
 
+    private String getTime(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日，HH：mm：ss");
+        Date date = new Date();
+        String str = simpleDateFormat.format(date);
+        return str;
+    }
+    public void addDB(){
+        ContentValues cv = new ContentValues();
+        cv.put(NotesDB.CONTENT,ettext.getText().toString());
+        cv.put(NotesDB.TIME,getTime());
+        cv.put(NotesDB.ENDTTIME, dateSpecific);
+        dbWriter.insert(NotesDB.TABLE_NAME,null,cv);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +145,7 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                dateSpecific = year + "年"+month+ "月" +dayOfMonth+ "日";
+                dateSpecific = year + "年"+(month+1)+ "月" +dayOfMonth+ "日";
             }
         });
         year = (TextView) findViewById(R.id.year);
@@ -142,6 +153,9 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
         dateofthemonth = (TextView) findViewById(R.id.dayofthemonth);
         dayoftheweek = (TextView) findViewById(R.id.dayoftheweek);
         textdisplayontoolbar = (TextView) findViewById(R.id.text_display_in_toolbar);
+
+        notesDB = new NotesDB(this);
+        dbWriter = notesDB.getWritableDatabase();
 
         initWidget();
         setTextTime();

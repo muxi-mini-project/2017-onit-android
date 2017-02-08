@@ -6,7 +6,7 @@
         android:orderInCategory="100"
         android:title="编辑头像"
         app:showAsAction="never" />
-    <item android:id="@+id/logout"
+    <item android:id="@+id/logoutInUserMain"
         android:orderInCategory="100"
         android:title="退出登录"
         app:showAsAction="never" />

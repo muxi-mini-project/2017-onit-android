@@ -20,6 +20,8 @@
         <activity android:name=".UserMainActivity"/>
         <activity android:name=".SearchforBBFActivity"/>
         <activity android:name=".CreateNewDongtai"/>
+        <activity android:name=".SelectActivity"/>
+        <activity android:name=".SelectAvatarActivity"/>
     </application>
 
 </manifest>

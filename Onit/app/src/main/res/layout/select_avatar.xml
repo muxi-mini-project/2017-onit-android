@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/pureAmber"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_for_selectAvatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.Toolbar>
+<ImageView
+    android:src="@drawable/php"
+    android:layout_below="@+id/toolbar_for_selectAvatar"
+    android:id="@+id/displayAvatar"
+    android:layout_width="match_parent"
+    android:layout_height="450dp" />
+    <LinearLayout
+        android:layout_below="@id/displayAvatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/selectTheOne"
+            android:layout_weight="1"
+            android:text="选择"
+            android:textColor="@color/pureBlack"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/selectNextne"
+            android:layout_weight="1"
+            android:text="下一张"
+            android:textColor="@color/pureBlack"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>
