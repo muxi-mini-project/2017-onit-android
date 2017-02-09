@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static com.example.kolibreath.onit.R.id.dongtai_canceled;
 
 /**
  * Created by kolibreath on 2017/2/3.
@@ -35,6 +38,7 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
     private TextView ettext;
     private SQLiteDatabase dbWriter;
     private NotesDB notesDB;
+    private RelativeLayout createNewDongtai;
 
     @Override
     public void onClick(View v) {
@@ -42,7 +46,7 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
             case R.id.dealine_text_button:
                 relativeLayout.setVisibility(View.VISIBLE);
                 break;
-            case R.id.dongtai_canceled:
+            case dongtai_canceled:
                 relativeLayout.setVisibility(View.GONE);
                 break;
             case R.id.dongtai_assure:
@@ -53,10 +57,6 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
                 }
                 relativeLayout.setVisibility(View.GONE);
                 break;
-            case  R.id.save:
-                addDB();
-                finish();
-                break;
         }
     }
 
@@ -66,42 +66,55 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ettext = (TextView) findViewById(R.id.ettext);
 
+        createNewDongtai = new RelativeLayout(this);
+        createNewDongtai  = (RelativeLayout) findViewById(R.id.createNewDongtai);
+
         TextView dongtai_canceled = (TextView) findViewById(R.id.dongtai_canceled);
         TextView dongtai_assure = (TextView) findViewById(R.id.dongtai_assure);
         Button dongtaifinished = (Button) findViewById(R.id.dongtaifinished);
         dongtaifinished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final RelativeLayout layout = (RelativeLayout) findViewById(R.id.dialog);
-                final TextView displayDate = (TextView) findViewById(R.id.displayDate);
-                displayDate.setText("你的计划截止于"+ dateSpecific);
-               layout.setVisibility(View.VISIBLE);
-                TextView negative = (TextView) findViewById(R.id.textViewNegative);
-                negative.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        layout.setVisibility(View.GONE);
-                    }
-                });
-                TextView positive = (TextView) findViewById(R.id.textViewPositive);
-                positive.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(CreateNewDongtai.this,OnitMainActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                if(dateSpecific==null){
+                    Snackbar.make(createNewDongtai,"少侠请先选择计划的截至日期",Snackbar.LENGTH_INDEFINITE).setAction("前去选择", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    }).show();
+                }else {
+
+                    final RelativeLayout layout = (RelativeLayout) findViewById(R.id.dialog);
+                    final TextView displayDate = (TextView) findViewById(R.id.displayDate);
+                    displayDate.setText("你的计划截止于" + dateSpecific);
+                    layout.setVisibility(View.VISIBLE);
+                    TextView negative = (TextView) findViewById(R.id.textViewNegative);
+                    negative.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            layout.setVisibility(View.GONE);
+                        }
+                    });
+                    TextView positive = (TextView) findViewById(R.id.textViewPositive);
+                    positive.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            addDB();
+                            finish();
+                            Intent intent = new Intent(CreateNewDongtai.this, OnitMainActivity.class);
+                            startActivity(intent);
+
+                        }
+                    });
+                }
             }
         });
 
-
-        save = (Button) findViewById(R.id.save);
         TextView textView = (TextView) findViewById(R.id.dealine_text_button);
         relativeLayout = (RelativeLayout) findViewById(R.id.calendarview_layout);
         textView.setOnClickListener(this);
         dongtai_assure.setOnClickListener(this);
         dongtai_canceled.setOnClickListener(this);
-        save.setOnClickListener(this);
     }
 
     private void setTextTime(){
@@ -123,7 +136,7 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
     }
 
     private String getTime(){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日，HH：mm：ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
         Date date = new Date();
         String str = simpleDateFormat.format(date);
         return str;
@@ -133,6 +146,14 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
         cv.put(NotesDB.CONTENT,ettext.getText().toString());
         cv.put(NotesDB.TIME,getTime());
         cv.put(NotesDB.ENDTTIME, dateSpecific);
+        if(dateSpecific==null){
+            Snackbar.make(createNewDongtai,"少侠请先选择计划的截至日期",Snackbar.LENGTH_INDEFINITE).setAction("前去选择", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            }).show();
+        }
         dbWriter.insert(NotesDB.TABLE_NAME,null,cv);
     }
 

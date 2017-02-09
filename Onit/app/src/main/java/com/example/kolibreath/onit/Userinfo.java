@@ -9,12 +9,12 @@ public class Userinfo {
     public int userAvatar;
     public String dongtaitime;
     public String content;
-    public int favorNumber;
-    public int commentsNumber;
+    public String favorNumber;
+    public String commentsNumber;
     public String dongtaiDeadline;
     public int userOnitStatus;
 
-    public Userinfo(String username,int userAvatar,String dongtaitime,String content,int commentsNumber,int favorNumber,String dongtaiDeadline,
+    public Userinfo(String username,int userAvatar,String dongtaitime,String content,String commentsNumber,String favorNumber,String dongtaiDeadline,
                     int userOnitStatus){
         this.username = username;
         this.userAvatar = userAvatar;
@@ -37,13 +37,13 @@ public class Userinfo {
     public String getContent(){
         return content;
     }
-    public int getCommentsNumber(){
+    public String getCommentsNumber(){
         return commentsNumber;
     }
     public String getDongtaiDeadline(){
         return dongtaiDeadline;
     }
-    public int getFavorNumber(){
+    public String getFavorNumber(){
         return favorNumber;
     }
     public int getUserOnitStatus(){return  userOnitStatus;}

@@ -4,14 +4,14 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="pureWhite">#f9f7f7</color>
-    <color name="pureGray">#606161</color>
+    <color name="pureGray">#898a8a</color>
     <color name="pureOrange">#FBC02D </color>
-    <color name="pureAmber">#222333 </color>
-    <color name="pureLowerAmber">#343655</color>
+    <color name="pureAmber">#1a1b27</color>
+    <color name="purePrimaryAmber">#222325</color>
+    <color name="pureLowerAmber">#23253b</color>
     <color name="pureBlack">#1d1d1e</color>
     <color name="pureLightGreen">#8BC34A</color>
     <color name="pureRed">#f34b3f</color>
-    <color name="pureAnotherAmber">#f34b3f</color>
 
 
 </resources>

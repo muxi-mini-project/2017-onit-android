@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/createNewDongtai"
     android:background="@color/pureAmber"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
@@ -17,16 +18,16 @@
             <TextView
                 android:layout_weight="1"
                 android:id="@+id/text_display_in_toolbar"
-                android:textSize="23dp"
+                android:textSize="20dp"
                 android:textColor="@color/pureWhite"
                 android:text="2017年12月12日周四"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <Button
+                android:id="@+id/dongtaifinished"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/pureBlack"
                 android:text="确定"
-                android:id="@+id/dongtaifinished"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/login_button"
                 android:layout_width="50dp"
@@ -172,8 +173,8 @@
     </RelativeLayout>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/dialog"
         android:visibility="gone"
+        android:id="@+id/dialog"
         android:background="@drawable/dialog"
         android:layout_centerInParent="true"
         android:layout_width="350dp"
@@ -218,14 +219,5 @@
             android:background="@color/pureOrange"
             android:layout_width="4dp"
             android:layout_height="64dp" />
-
     </RelativeLayout>
-    <Button
-        android:id="@+id/save"
-        android:text="保存"
-        android:textColor="@color/pureBlack"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 </RelativeLayout>

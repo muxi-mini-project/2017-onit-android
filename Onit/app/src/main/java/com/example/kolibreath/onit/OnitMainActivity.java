@@ -80,11 +80,11 @@ public class OnitMainActivity extends AppCompatActivity {
         });
     }
     private void initUserDongtaiData(){
-        Userinfo userinfo1 = new Userinfo("石泽远",R.mipmap.ic_launcher,"2017/2.4","test",2,3,"2017/2.13",1);
+        Userinfo userinfo1 = new Userinfo("石泽远",R.mipmap.ic_launcher,"2017/2.4","test","2","3","2017/2.13",1);
         userinfolist.add(userinfo1);
-        Userinfo userinfo2 = new Userinfo("石泽远",R.mipmap.ic_launcher,"2017/2.4","test",2,3,"2017/2.13",1);
+        Userinfo userinfo2 = new Userinfo("石泽远",R.mipmap.ic_launcher,"2017/2.4","test","2","3","2017/2.13",1);
         userinfolist.add(userinfo2);
-        Userinfo userinfo3 = new Userinfo("石泽远",R.mipmap.ic_launcher,"2017/2.4","test",2,3,"2017/2.13",3);
+        Userinfo userinfo3 = new Userinfo("石泽远",R.mipmap.ic_launcher,"2017/2.4","test","2","3","2017/2.13",3);
         userinfolist.add(userinfo3);
     }
 

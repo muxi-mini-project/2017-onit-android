@@ -15,10 +15,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -36,7 +32,6 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
     private Button newOnit;
     private UserOwnDongtaiAdapter myAdapter;
     private CircleImageView circleImageView;
-    private RelativeLayout onit, finished,unfinished;
     private SQLiteDatabase db;
 
     private void initWidget(){
@@ -46,16 +41,14 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         userDongtaiList = (TabLayout) findViewById(R.id.userDongtaiList);
         userDongtaiList.addTab(userDongtaiList.newTab().setText("任务列表"));
 
-        onit  = (RelativeLayout) findViewById(R.id.user_onit);
-         finished  = (RelativeLayout) findViewById(R.id.user_finished);
-        unfinished  = (RelativeLayout) findViewById(R.id.user_unfinished);
+
 
         lv = (ListView) findViewById(R.id.userDongtaiRealList);
-        Log.d("skip to select", "process");
+        lv.setVerticalScrollBarEnabled(false);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("skip to select", "process");
+                Log.d("select list item", "process");
                 cursor = dbReader.rawQuery("select * from " + NotesDB.TABLE_NAME,null);
                 cursor.moveToPosition(position);
                 Intent i = new Intent(UserMainActivity.this, SelectActivity.class);
@@ -84,13 +77,6 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         Cursor cursor = dbReader.query(NotesDB.TABLE_NAME,null,null,null,null,null,null);
         myAdapter = new UserOwnDongtaiAdapter(this,cursor);
         lv.setAdapter(myAdapter);
-
-        String date = getTime();
-
-        int year = Integer.parseInt(date.substring(0,4));
-        int month = Integer.parseInt(date.substring(5,7));
-        int day = Integer.parseInt(date.substring(8,10));
-
 
     }
     protected void onResume(){
@@ -145,10 +131,5 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         return super.onOptionsItemSelected(item);
     }
 
-    private String getTime(){
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月DD日");
-        String str = format.format(date);
-        return  str;
-    }
+
 }

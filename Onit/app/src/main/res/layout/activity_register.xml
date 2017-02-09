@@ -89,13 +89,13 @@
            android:layout_height="wrap_content" />
        <Button
            android:id="@+id/registerForSure"
-           android:textStyle="bold"
+           android:textColor="@color/pureBlack"
            android:textSize="20dp"
            android:text="注册"
            android:background="@drawable/login_button"
            android:layout_marginTop="430dp"
            android:layout_centerHorizontal="true"
-           android:layout_width="wrap_content"
+           android:layout_width="130dp"
            android:layout_height="wrap_content" />
 
        <TextView
@@ -109,12 +109,12 @@
            android:id="@+id/textView" />
    </RelativeLayout>
     <RelativeLayout
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="490dp"
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_marginLeft="130dp"
             android:id="@+id/sample_qustion_alreadyhas"
             android:text="已有账号？"
             android:textColor="@color/pureWhite"
@@ -129,12 +129,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <TextView
         android:id="@+id/muxiDesign2"
         android:text="木犀团队"
         android:textSize="16dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="150dp"
         android:layout_marginTop="540dp"
         android:textColor="@color/pureOrange"
         android:layout_width="wrap_content"
@@ -149,4 +153,5 @@
         android:layout_toRightOf="@+id/muxiDesign2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    </LinearLayout>
 </RelativeLayout>
