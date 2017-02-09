@@ -11,8 +11,8 @@
         android:layout_height="240dp"
         android:layout_alignParentTop="true">
         <RelativeLayout
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/layoutworkingstatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -20,7 +20,7 @@
                 android:id="@+id/user_finished"
                 android:visibility="gone"
                 android:background="@drawable/dongtai_status_finished"
-                android:layout_width="95dp"
+                android:layout_width="85dp"
                 android:layout_height="40dp">
                 <ImageView
                     android:layout_centerVertical="true"
@@ -40,20 +40,20 @@
             <RelativeLayout
                 android:id="@+id/user_onit"
                 android:background="@drawable/dongtai_status_onit"
-                android:layout_width="95dp"
+                android:layout_width="85dp"
                 android:layout_height="40dp">
                 <ImageView
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/ic_onit_yellow_18dp"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp" />
+                    android:layout_width="15dp"
+                    android:layout_height="15dp" />
                 <TextView
                     android:textColor="@color/pureOrange"
                     android:text="进行中"
                     android:textSize="16dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="32dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
@@ -61,7 +61,7 @@
                 android:visibility="gone"
                 android:id="@+id/user_unfinished"
                 android:background="@drawable/dongtao_status_unfinished"
-                android:layout_width="95dp"
+                android:layout_width="85dp"
                 android:layout_height="40dp">
                 <ImageView
                     android:layout_centerVertical="true"
@@ -85,14 +85,16 @@
         <TextView
             android:id="@+id/kaishishijian"
             android:text="开始时间"
-            android:layout_marginTop="30dp"
+            android:textSize="13dp"
+            android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/layoutworkingstatus"
             android:layout_marginLeft="15dp"
             android:textColor="@color/pureGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
-            android:layout_marginTop="34dp"
+            android:alpha="0.5"
+            android:layout_marginTop="20dp"
             android:layout_toRightOf="@+id/kaishishijian"
             android:src="@mipmap/ic_flag_white_18dp"
             android:layout_width="wrap_content"
@@ -103,6 +105,7 @@
             android:layout_toRightOf="@id/layoutworkingstatus"
             android:layout_marginLeft="15dp"
             android:text="2016年1月25日"
+            android:textSize="13dp"
             android:textColor="@color/pureGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -122,12 +125,13 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
         <ImageButton
+            android:alpha="0.5"
             android:id="@+id/favorit"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="200dp"
             android:background="@mipmap/ic_favorite_border_white_18dp"
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
         <ImageButton
             android:id="@+id/unfavorit"
             android:visibility="gone"
@@ -140,25 +144,25 @@
             android:id="@+id/fNumbers"
             android:layout_toRightOf="@+id/favorit"
             android:layout_marginTop="195dp"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="10dp"
             android:text="11"
             android:textSize="19dp"
             android:textColor="@color/pureGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
         <ImageView
             android:id="@+id/comments"
-            android:layout_marginLeft="87dp"
+            android:alpha="0.5"
+            android:layout_marginLeft="82dp"
             android:layout_marginTop="200dp"
             android:src="@mipmap/ic_chat_bubble_outline_black_18dp"
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
         <TextView
             android:id="@+id/cNumbers"
             android:layout_toRightOf="@+id/favorit"
             android:layout_marginTop="195dp"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="75dp"
             android:text="9"
             android:textSize="19dp"
             android:textColor="@color/pureGray"
@@ -166,20 +170,33 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/dongtai_deadline_string"
-            android:textColor="@color/pureWhite"
-            android:layout_marginTop="195dp"
+            android:textColor="@color/pureGray"
+            android:layout_marginTop="200dp"
             android:layout_toLeftOf="@+id/userowndongtaiDeadlineDate"
             android:text="截止日期： "
+            android:textSize="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/userowndongtaiDeadlineDate"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="195dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginRight="15dp"
             android:text="2016年4月1日"
-            android:textColor="@color/pureWhite"
+            android:textSize="12dp"
+            android:textColor="@color/pureGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/changetoFinished"
+            android:background="@drawable/finished_button"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="25dp"
+            android:text="完成任务"
+            android:textColor="@color/pureBlack"
+            android:layout_width="79dp"
+            android:layout_height="38dp" />
     </RelativeLayout>
 
 </RelativeLayout>

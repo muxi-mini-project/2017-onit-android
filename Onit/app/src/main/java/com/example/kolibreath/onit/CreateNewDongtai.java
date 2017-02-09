@@ -20,6 +20,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.example.kolibreath.onit.R.id.dayofthemonth;
 import static com.example.kolibreath.onit.R.id.dongtai_canceled;
 
 /**
@@ -32,9 +33,9 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
     private RelativeLayout relativeLayout;
     private TextView year,dayoftheweek,month,dateofthemonth,textdisplayontoolbar;
     private TabLayout tabLayout;
-    //datespecfic表示 tab上显示的标签 具体时间 比如说 2017/2/25
-    private String dateSpecific;
-    private Button save;
+    //datespecfic表示 日历控件监听的时间显示的标签 具体时间 比如说 2017/2/25
+    //dateTemp 表示现在的时间
+    private String dateSpecific,dateTemp;
     private TextView ettext;
     private SQLiteDatabase dbWriter;
     private NotesDB notesDB;
@@ -136,7 +137,7 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
     }
 
     private String getTime(){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
         String str = simpleDateFormat.format(date);
         return str;
@@ -166,20 +167,45 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                dateSpecific = year + "年"+(month+1)+ "月" +dayOfMonth+ "日";
+                dateSpecific = year + "/"+(month+1)+ "/" +dayOfMonth;
             }
         });
         year = (TextView) findViewById(R.id.year);
         month = (TextView) findViewById(R.id.month);
         dateofthemonth = (TextView) findViewById(R.id.dayofthemonth);
+
         dayoftheweek = (TextView) findViewById(R.id.dayoftheweek);
         textdisplayontoolbar = (TextView) findViewById(R.id.text_display_in_toolbar);
+
+        if (dayofthemonth<getDay()){
+            Snackbar.make(relativeLayout,"少侠眼花了吧，今天的日子是"+getDay()+"号",Snackbar.LENGTH_INDEFINITE)
+                    .setAction("多谢小哥提醒", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    }).show();
+        }
 
         notesDB = new NotesDB(this);
         dbWriter = notesDB.getWritableDatabase();
 
         initWidget();
         setTextTime();
+    }
+
+    private int getDay(){
+        SimpleDateFormat format = new SimpleDateFormat("dd");
+        Date date = new Date();
+        String str = format.format(date);
+        int day = Integer.parseInt(str);
+        return  day;
+    }
+    private int getMonth(){
+        SimpleDateFormat format = new SimpleDateFormat("MM");
+        Date date = new Date();
+        String str = format.format(date);
+        int month = Integer.parseInt(str);
+        return  month;
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

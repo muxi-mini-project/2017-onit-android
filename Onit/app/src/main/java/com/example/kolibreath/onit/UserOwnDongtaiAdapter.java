@@ -26,6 +26,7 @@ public class UserOwnDongtaiAdapter extends BaseAdapter{
     private RelativeLayout onit, finished, unfinished;
     private String date;
     private int yearEnd, monthEnd, dayEnd;
+    private int dayFixes;
     private int yearStart, monthStart, dayStart;
     private ImageButton favor, unfavor;
 
@@ -107,8 +108,9 @@ public class UserOwnDongtaiAdapter extends BaseAdapter{
         Log.d("edtime", edtime);
         yearEnd = Integer.parseInt(edtime.substring(0, 4));
         monthEnd = Integer.parseInt(edtime.substring(5, 6));
-        dayEnd = Integer.parseInt(edtime.substring(7, 9));
+        dayEnd = Integer.parseInt(edtime.substring(7, edtime.length()));
         Log.d("endtime", edtime);
+
 
         if (yearStart <= yearEnd) {
             Log.d("yearsure", "true");
@@ -121,10 +123,11 @@ public class UserOwnDongtaiAdapter extends BaseAdapter{
                 } else {
                     Log.d("daywrong dayst", timenow.substring(8, 10));
                     Log.d("dayend dayed", edtime.substring(7, 8));
-                    onit.setVisibility(View.GONE);
-                    unfinished.setVisibility(View.VISIBLE);
+                    onit.setVisibility(View.VISIBLE);
+                    unfinished.setVisibility(View.GONE);
                 }
             } else {
+                Log.d("monthfalse",timenow.substring(8, 10));
                 onit.setVisibility(View.GONE);
                 unfinished.setVisibility(View.VISIBLE);
             }
@@ -143,7 +146,7 @@ public class UserOwnDongtaiAdapter extends BaseAdapter{
     }
 
     private String getDate() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd");
         Date date = new Date();
         String str = format.format(date);
         return str;
