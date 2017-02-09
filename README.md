@@ -6,4 +6,5 @@
  这个 需要在 values - style - 中定义 textcolorprimary / textcolorsecondary 然后再toolbar的布局文件中加入 app:popupTheme="@style/Theme.AppCompat.NoActionBar" 即可
  (2.5)下午 ui基本写完了 晚上回去再修改一下细节 等着和后端商量一下 可以写网络请求了
  （2.5）晚上 ui完工！ 来呀造作啊！
- 
+ （2.9）这几天 在本地写了一个 数据库 可以作为离线情况使用 简单头像选取（这个low到爆炸）
+ 然后ui 细化 很多按照ui详细的在改善 修正一些 bug  比如 选择日期失败闪退 日期无法比较 然后 错误确定onitstatus 等
