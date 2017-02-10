@@ -122,21 +122,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         </RelativeLayout>
-        <ImageButton
+        <ImageView
             android:id="@+id/favor_or_not1"
+            android:src="@mipmap/ic_favorite_border_white_18dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="200dp"
-            android:background="@mipmap/ic_favorite_border_white_18dp"
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
-        <ImageButton
-            android:id="@+id/favor_or_not2"
-            android:visibility="gone"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="200dp"
-            android:background="@mipmap/ic_favorite_red_18dp"
-            android:layout_width="21dp"
-            android:layout_height="21dp" />
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
         <TextView
             android:id="@+id/likeNumbers"
             android:layout_toRightOf="@+id/favor_or_not1"

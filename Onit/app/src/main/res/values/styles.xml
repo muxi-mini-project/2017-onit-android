@@ -13,8 +13,11 @@
          <item name="colorControlNormal">@color/pureGray</item>
          <item name="colorControlActivated">@color/pureWhite</item>
     </style>
-    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">  
-        <item name="actionMenuTextColor">@color/pureBlack</item>
-    </style>  
-
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="actionMenuTextColor">@color/pureBlack</item> <!--  敲定颜色-->
+        <item name="android:textSize">18sp</item> <!--  搞掂字体大小-->
+    </style>
+    <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat">
+        <item name="android:colorBackground">#212121</item>
+    </style>
 </resources>

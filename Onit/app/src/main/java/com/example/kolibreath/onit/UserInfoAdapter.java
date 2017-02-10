@@ -1,7 +1,6 @@
 package com.example.kolibreath.onit;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +22,8 @@ public class UserInfoAdapter extends ArrayAdapter<Userinfo>{
     private int onitstatus;
     private List<Userinfo> userinfoList;
     private Userinfo info;
-    private TextView userName, userAvatar, dongtaiTime, content,deadLine, favorNumbers,commentsNumbers;
     private ImageButton imageButton1, imageButton2;
+    private int clickstatus = 1;
     public UserInfoAdapter(Context context, int resourceId, List<Userinfo> object,List<Userinfo> list){
         super(context,resourceId,object);
         this.resourceId = resourceId;
@@ -33,36 +32,40 @@ public class UserInfoAdapter extends ArrayAdapter<Userinfo>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-         Userinfo info = getItem(position);
-
+        Userinfo info = getItem(position);
         View view = LayoutInflater.from(getContext()).inflate(resourceId,null);
         ImageView userAvatar = (ImageView) view.findViewById(R.id.userAvatar);
-        userName  = (TextView) view.findViewById(R.id.userName);
-        dongtaiTime = (TextView) view.findViewById(R.id.dongtaiTime);
-        content = (TextView) view.findViewById(R.id.userDongtaiContent);
-        deadLine = (TextView) view.findViewById(R.id.dongtaiDeadlineDate);
-        favorNumbers = (TextView) view.findViewById(R.id.likeNumbers);
-        commentsNumbers = (TextView) view.findViewById(R.id.commentNumbers);
+        TextView userName  = (TextView) view.findViewById(R.id.userName);
+        TextView dongtaiTime = (TextView) view.findViewById(R.id.dongtaiTime);
+        TextView content = (TextView) view.findViewById(R.id.userDongtaiContent);
+        TextView deadLine = (TextView) view.findViewById(R.id.dongtaiDeadlineDate);
+        final TextView favorNumbers = (TextView) view.findViewById(R.id.likeNumbers);
+        TextView commentsNumbers = (TextView) view.findViewById(R.id.commentNumbers);
 
-        imageButton1 = (ImageButton) view.findViewById(R.id.favor_or_not1);
-        imageButton2 = (ImageButton) view.findViewById(R.id.favor_or_not2);
-        imageButton1.setOnClickListener(new View.OnClickListener() {
+         final ImageView favor_or_not1 = (ImageView) view.findViewById(R.id.favor_or_not1);
+
+        //getText出了问题
+        String str1 = favorNumbers.getText().toString();
+        int number = Integer.parseInt(str1)+1;
+        final String addedstr = String.valueOf(number);
+
+        final String substractedstr = String.valueOf(number-1);
+
+         favor_or_not1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("setText", "onClick: ");
-                imageButton2.setVisibility(View.VISIBLE);
-                String i = returnAddNumers();
-                favorNumbers.setText(i);
-                Log.d("textNumber", i);
+                if(clickstatus==1){
+                favor_or_not1.setImageResource(R.drawable.ic_favorite_red_18dp);
+                favorNumbers.setText(addedstr);
+                    clickstatus=0;
+                }else {
+                    favor_or_not1.setImageResource(R.drawable.ic_favorite_border_white_18dp);
+                    favorNumbers.setText(substractedstr);
+                    clickstatus= 1;
+                }
                 }
 
 
-        });
-        imageButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageButton2.setVisibility(View.GONE);
-            }
         });
 
         userAvatar.setImageResource(info.getUserAvatar());
@@ -95,11 +98,5 @@ public class UserInfoAdapter extends ArrayAdapter<Userinfo>{
                 break;
         }
         return view;
-    }
-    private String returnAddNumers(){
-        String str1 = favorNumbers.getText().toString();
-        int number = Integer.parseInt(str1)+1;
-        String str = String.valueOf(number);
-        return  str;
     }
 }

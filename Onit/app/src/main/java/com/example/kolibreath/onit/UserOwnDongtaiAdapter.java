@@ -7,7 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,20 +16,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Administrator on 2016/11/12.
+ * Created by  on Kolibreath 2017/2/7.
  */
 
 public class UserOwnDongtaiAdapter extends BaseAdapter{
 
     private Context context;
     private Cursor cursor;
-    private RelativeLayout layout;
-    private RelativeLayout onit, finished, unfinished;
     private String date;
     private int yearEnd, monthEnd, dayEnd;
-    private int dayFixes;
     private int yearStart, monthStart, dayStart;
-    private ImageButton favor, unfavor;
+    private int clickstatus = 1;
 
 
     public UserOwnDongtaiAdapter(Context context, Cursor cursor) {
@@ -51,34 +49,43 @@ public class UserOwnDongtaiAdapter extends BaseAdapter{
         return position;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        layout = (RelativeLayout) inflater.inflate(R.layout.userown_dongtai_item, null);
+        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.userown_dongtai_item, parent,false);
 
         TextView contenttv = (TextView) layout.findViewById(R.id.userownDongtaiContent);
         TextView timetv = (TextView) layout.findViewById(R.id.userowndongtaiTime);
         TextView endtime = (TextView) layout.findViewById(R.id.userowndongtaiDeadlineDate);
+        final TextView jiezhishijian = (TextView) layout.findViewById(R.id.jieshushishijian);
+        final TextView usedongtaiFinishedtime = (TextView) layout.findViewById(R.id.userowndongtaiFinishedTime);
 
-        favor = (ImageButton) layout.findViewById(R.id.favorit);
-        unfavor = (ImageButton) layout.findViewById(R.id.unfavorit);
+        final ImageView flagWhite = (ImageView) layout.findViewById(R.id.flagWhite);
 
-        favor.setOnClickListener(new View.OnClickListener() {
+       final Button changetofinished = (Button) layout.findViewById(R.id.changetoFinished);
+
+        ImageView favoriv = (ImageView) layout.findViewById(R.id.favorit);
+
+
+        favoriv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("favour", "clicked 1");
-                    unfavor.setVisibility(View.VISIBLE);
+                switch (v.getId()) {
+                    case R.id.favorit:
+                        if (clickstatus == 1) {
+                            ((ImageView)v).setImageResource(R.drawable.ic_favorite_red_18dp);
+                            clickstatus = 0;
+                            Log.d("clickstatus", String.valueOf(clickstatus));
+                        }else{
+                            ((ImageView)v).setImageResource(R.drawable.ic_favorite_border_white_18dp);
+                            clickstatus = 1;
+                            Log.d("process", String.valueOf(clickstatus));
+                        }
+                        break;
                 }
-
-        });
-        unfavor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("favor it ", "click 2");
-                    unfavor.setVisibility(View.GONE);
-
-
             }
+
         });
 
 
@@ -89,9 +96,9 @@ public class UserOwnDongtaiAdapter extends BaseAdapter{
         String time = cursor.getString(cursor.getColumnIndex("time"));
         String edtime = cursor.getString(cursor.getColumnIndex("endtime"));
 
-        onit = (RelativeLayout) layout.findViewById(R.id.user_onit);
-        finished = (RelativeLayout) layout.findViewById(R.id.user_finished);
-        unfinished = (RelativeLayout) layout.findViewById(R.id.user_unfinished);
+        final RelativeLayout onit = (RelativeLayout) layout.findViewById(R.id.user_onit);
+        final RelativeLayout finished = (RelativeLayout) layout.findViewById(R.id.user_finished);
+        final RelativeLayout unfinished = (RelativeLayout) layout.findViewById(R.id.user_unfinished);
 
 
         String timenow = getDate();
@@ -136,17 +143,32 @@ public class UserOwnDongtaiAdapter extends BaseAdapter{
             unfinished.setVisibility(View.VISIBLE);
         }
 
+        //没有变化 已经执行
+        changetofinished.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("changetofinshed", "onClick: ");
+                changetofinished.setVisibility(View.GONE);
+                finished.setVisibility(View.VISIBLE);
+                onit.setVisibility(View.GONE);
+
+                jiezhishijian.setVisibility(View.VISIBLE);
+                flagWhite.setVisibility(View.VISIBLE);
+                usedongtaiFinishedtime.setVisibility(View.VISIBLE);
+                usedongtaiFinishedtime.setText(getDate());
+            }
+        });
 
         contenttv.setText(content);
         timetv.setText(time);
         endtime.setText(edtime);
-
         return layout;
 
     }
 
+    //获取今天的日期
     private String getDate() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
         String str = format.format(date);
         return str;

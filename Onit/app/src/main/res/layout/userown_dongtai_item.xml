@@ -51,7 +51,7 @@
                 <TextView
                     android:textColor="@color/pureOrange"
                     android:text="进行中"
-                    android:textSize="16dp"
+                    android:textSize="13dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="32dp"
                     android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content" />
         <ImageView
             android:alpha="0.5"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="23dp"
             android:layout_toRightOf="@+id/kaishishijian"
             android:src="@mipmap/ic_flag_white_18dp"
             android:layout_width="wrap_content"
@@ -124,22 +124,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
-        <ImageButton
-            android:alpha="0.5"
+        <ImageView
             android:id="@+id/favorit"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="200dp"
-            android:background="@mipmap/ic_favorite_border_white_18dp"
-            android:layout_width="15dp"
-            android:layout_height="15dp" />
-        <ImageButton
-            android:id="@+id/unfavorit"
-            android:visibility="gone"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="202dp"
-            android:background="@mipmap/ic_favorite_red_18dp"
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
+            android:src="@drawable/ic_favorite_border_white_18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/fNumbers"
             android:layout_toRightOf="@+id/favorit"
@@ -189,6 +180,7 @@
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/changetoFinished"
+            android:visibility="gone"
             android:background="@drawable/finished_button"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
@@ -197,6 +189,33 @@
             android:textColor="@color/pureBlack"
             android:layout_width="79dp"
             android:layout_height="38dp" />
+
+        <TextView
+            android:id="@+id/jieshushishijian"
+            android:text="完成时间"
+            android:textSize="13dp"
+            android:layout_marginLeft="270dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/pureWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/flagWhite"
+            android:layout_marginTop="23dp"
+            android:layout_toRightOf="@+id/jieshushishijian"
+            android:src="@mipmap/ic_flag_white_18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/userowndongtaiFinishedTime"
+            android:layout_below="@+id/kaishishijian"
+            android:layout_toRightOf="@id/layoutworkingstatus"
+            android:layout_marginLeft="165dp"
+            android:text="2016年1月25日"
+            android:textSize="13dp"
+            android:textColor="@color/pureWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
 </RelativeLayout>

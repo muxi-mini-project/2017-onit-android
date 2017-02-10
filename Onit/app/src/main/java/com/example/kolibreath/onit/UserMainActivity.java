@@ -45,6 +45,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
         lv = (ListView) findViewById(R.id.userDongtaiRealList);
         lv.setVerticalScrollBarEnabled(false);
+        Log.d("before selectxxxxxxxxx","initWidget: ");
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -115,8 +116,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
             case R.id.action_settings:
                 return true;
             case android.R.id.home:
-                Intent intent = new Intent(UserMainActivity.this,OnitMainActivity.class);
-                startActivity(intent);
+                finish();
                 break;
             case R.id.logoutInUserMain:
                 Intent logoutintent = new Intent(UserMainActivity.this,MainActivity.class);
