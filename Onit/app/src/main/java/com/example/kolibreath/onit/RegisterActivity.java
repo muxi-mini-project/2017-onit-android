@@ -60,8 +60,8 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         userName = registeruserName.getText().toString();
         userPassword = registerUserPasswWord.getText().toString();
         confirmPassword = confirmUserPassword.getText().toString();
-                if (userName.length() > 4 && userName.length() < 20) {
-                if ((userPassword.length()>8&&userPassword.length()<16)){
+                if (userName.length() >= 4 && userName.length() < 20) {
+                if ((userPassword.length()>=8&&userPassword.length()<16)){
                     if (userPassword.equals(confirmPassword)){
                         Intent intent = new Intent(RegisterActivity.this,OnitMainActivity.class);
                         startActivity(intent);

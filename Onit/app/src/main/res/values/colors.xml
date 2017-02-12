@@ -12,6 +12,7 @@
     <color name="pureBlack">#1d1d1e</color>
     <color name="pureLightGreen">#8BC34A</color>
     <color name="pureRed">#f34b3f</color>
+    <color name="pureLowerWhite">#a2a1a1</color>
 
 
 </resources>

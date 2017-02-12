@@ -30,7 +30,6 @@
             android:layout_toRightOf="@+id/user_avatar"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="35dp"
-            android:text="我是十个字以内的名字"
             android:textSize="15dp"
             android:textColor="@color/pureWhite"
             android:layout_width="wrap_content"
@@ -46,11 +45,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/rankDisplay"
             android:layout_below="@+id/users_name_display"
             android:textColor="@color/pureGray"
             android:layout_toRightOf="@id/rank"
             android:layout_marginLeft="15dp"
-            android:text="炉火纯青"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -85,11 +84,11 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/fans_number"
+            android:text="13"
             android:layout_toRightOf="@+id/fans"
             android:layout_marginLeft="15dp"
             android:layout_below="@+id/rank"
             android:layout_marginTop="15dp"
-            android:text="35"
             android:textColor="@color/pureGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

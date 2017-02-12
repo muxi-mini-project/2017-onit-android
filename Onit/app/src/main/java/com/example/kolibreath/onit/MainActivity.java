@@ -11,11 +11,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity {
 
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://192.168.31.169:3000/statuses/v1.0/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    ServiceInterface si = retrofit.create(ServiceInterface.class);
+
+    private EditText usersName;
+
     private void initWidget(){
-        EditText usersName = (EditText) findViewById(R.id.users_name);
         EditText userPassword = (EditText)findViewById(R.id.users_password);
+        usersName = (EditText) findViewById(R.id.users_name);
         TextView clicktoregister = (TextView) findViewById(R.id.clicktoregister);
         userPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
@@ -27,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     private void matchUserNameAndPassWord() {
@@ -37,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (matches) {
+                    getApp().getUserText(usersName.getText().toString());
                     Intent intent = new Intent(MainActivity.this, OnitMainActivity.class);
                     startActivity(intent);
                 }
@@ -51,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         matchUserNameAndPassWord();
 
 
+
+
+
     }
 
     @Override
@@ -61,23 +78,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private App getApp(){
+        return ((App)getApplicationContext());
     }
 }

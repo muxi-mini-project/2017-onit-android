@@ -79,6 +79,7 @@
             android:layout_height="2dp" />
         <EditText
             android:id="@+id/ettext"
+            android:background="@null"
             android:layout_marginTop="70dp"
             android:hint="说说你的计划吧！"
             android:textColorHint="@color/pureGray"

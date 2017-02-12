@@ -1,0 +1,48 @@
+{
+	"routes": [
+		{
+			"name": "api.timeline",
+			"endpoint": "/statuses/v1.0/friends_timeline",
+			"async": true
+		},
+		{
+			"name": "api.signup",
+			"endpoint": "/statuses/v1.0/signup",
+			"async": true
+		}
+	],
+	"data":{
+		"api.courses":{
+			"title": "second"
+		},
+		"api.timeline":[{
+			"id":1,
+			"text":"这是一条任务",
+			"comments_count":1,
+			"attitudes_count":1,
+			"starttime":"2017/02/01",
+			"deadline":"2017/02/20",
+			"user_id":1,
+			"user_idstr":"第一个用户"
+
+		},
+		{"id":2,
+			"text":"这是二条任务",
+			"comments_count":2,
+			"attitudes_count":2,
+			"starttime":"2017/02/01",
+			"deadline":"2017/02/04",
+			"user_id":2,
+			"user_idstr":"第二个用户"
+		},
+		{"id":3,
+			"text":"这是三条任务",
+			"comments_count":3,
+			"attitudes_count":3,
+			"starttime":"2017/02/01",
+			"deadline":"2017/02/03",
+			"user_id":3,
+			"user_idstr":"第三个用户"
+			}]
+	}
+}

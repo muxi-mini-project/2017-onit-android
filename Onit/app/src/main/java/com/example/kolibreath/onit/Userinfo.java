@@ -14,8 +14,10 @@ public class Userinfo {
     public String dongtaiDeadline;
     public int userOnitStatus;
 
-    public Userinfo(String username,int userAvatar,String dongtaitime,String content,String commentsNumber,String favorNumber,String dongtaiDeadline,
-                    int userOnitStatus){
+    public Userinfo(int userAvatar,String dongtaitime,
+                    String content,String commentsNumber,
+                    String favorNumber,String dongtaiDeadline,
+                    int userOnitStatus,String username){
         this.username = username;
         this.userAvatar = userAvatar;
         this.dongtaitime = dongtaitime;

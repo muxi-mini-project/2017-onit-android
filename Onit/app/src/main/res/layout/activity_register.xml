@@ -28,7 +28,7 @@
     <ImageView
         android:id="@+id/thereisabitmap"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/onit"
+        android:src="@mipmap/icon192"
         android:layout_width="140dp"
         android:layout_height="140dp" />
         <TextView

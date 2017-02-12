@@ -143,7 +143,7 @@ public class UserOwnDongtaiAdapter extends BaseAdapter{
             unfinished.setVisibility(View.VISIBLE);
         }
 
-        //没有变化 已经执行
+        //显示完成的日期
         changetofinished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

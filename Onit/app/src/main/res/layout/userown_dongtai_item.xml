@@ -31,7 +31,7 @@
                 <TextView
                     android:textColor="@color/pureLightGreen"
                     android:text="已完成"
-                    android:textSize="16dp"
+                    android:textSize="13dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="40dp"
                     android:layout_width="wrap_content"
@@ -180,7 +180,6 @@
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/changetoFinished"
-            android:visibility="gone"
             android:background="@drawable/finished_button"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
@@ -192,25 +191,28 @@
 
         <TextView
             android:id="@+id/jieshushishijian"
+           android:visibility="gone"
             android:text="完成时间"
             android:textSize="13dp"
-            android:layout_marginLeft="270dp"
+            android:layout_marginLeft="240dp"
             android:layout_marginTop="20dp"
             android:textColor="@color/pureWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
             android:id="@+id/flagWhite"
+            android:visibility="gone"
             android:layout_marginTop="23dp"
             android:layout_toRightOf="@+id/jieshushishijian"
             android:src="@mipmap/ic_flag_white_18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:visibility="gone"
             android:id="@+id/userowndongtaiFinishedTime"
             android:layout_below="@+id/kaishishijian"
             android:layout_toRightOf="@id/layoutworkingstatus"
-            android:layout_marginLeft="165dp"
+            android:layout_marginLeft="135dp"
             android:text="2016年1月25日"
             android:textSize="13dp"
             android:textColor="@color/pureWhite"

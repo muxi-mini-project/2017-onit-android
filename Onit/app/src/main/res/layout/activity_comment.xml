@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/pureAmber"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_for_comments"
+        android:background="@color/pureLowerAmber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:background="@color/pureLowerAmber"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <EditText
+            android:id="@+id/sendComments"
+            android:background="@null"
+            android:hint="要说点什么吗，少侠？"
+            android:layout_marginLeft="20dp"
+            android:textColorHint="@color/pureGray"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+        <ImageView
+            android:id="@+id/clicktoSendMessage"
+            android:src="@drawable/sendmessage"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

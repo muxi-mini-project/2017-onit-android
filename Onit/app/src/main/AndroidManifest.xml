@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kolibreath.onit">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+        android:name="com.example.kolibreath.onit.App"
         android:allowBackup="true"
-        android:icon="@mipmap/onit"
+        android:icon="@mipmap/icon192"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -22,6 +24,7 @@
         <activity android:name=".CreateNewDongtai"/>
         <activity android:name=".SelectActivity"/>
         <activity android:name=".SelectAvatarActivity"/>
+        <activity android:name=".Comment"/>
     </application>
 
 </manifest>
