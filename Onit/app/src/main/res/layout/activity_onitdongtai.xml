@@ -39,7 +39,7 @@
         android:layout_height="wrap_content">
         <ListView
             android:divider="@color/pureAmber"
-            android:dividerHeight="10dp"
+            android:dividerHeight="20dp"
             android:id="@+id/uesrDongTaiList"
             android:background="@color/pureLowerAmber"
             android:layout_width="match_parent"
@@ -84,8 +84,8 @@
         android:visibility="gone"
         android:layout_marginTop="463dp"
         android:layout_marginLeft="240dp"
-        android:textColor="@color/pureWhite"
-        android:background="@color/pureBlack"
+        android:textColor="@color/pureBlack"
+        android:background="@color/pureWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
@@ -95,8 +95,8 @@
         android:visibility="gone"
         android:layout_marginTop="413dp"
         android:layout_marginLeft="240dp"
-        android:textColor="@color/pureWhite"
-        android:background="@color/pureBlack"
+        android:textColor="@color/pureBlack"
+        android:background="@color/pureWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

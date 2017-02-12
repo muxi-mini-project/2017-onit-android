@@ -1,4 +1,4 @@
-package com.example.kolibreath.onit;
+package com.example.kolibreath.onit.Beans;
 
 /**
  * Created by kolibreath on 2017/2/10.
@@ -9,16 +9,18 @@ public class FriendsDongtaiBean {
     /**
      * id : 1
      * text : 这是一条任务
+     * avatar : R.drawble.python
      * comments_count : 1
      * attitudes_count : 1
-     * starttime : 2017/2/1
-     * deadline : 2017/2/2
+     * starttime : 2017/02/01
+     * deadline : 2017/02/20
      * user_id : 1
-     * user_idstr : 第一个用户
+     * user_idstr : 唐相儒
      */
 
     private int id;
     private String text;
+    private String avatar;
     private int comments_count;
     private int attitudes_count;
     private String starttime;
@@ -40,6 +42,14 @@ public class FriendsDongtaiBean {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public int getComments_count() {

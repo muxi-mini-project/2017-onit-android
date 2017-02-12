@@ -1,4 +1,4 @@
-package com.example.kolibreath.onit;
+package com.example.kolibreath.onit.Activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.kolibreath.onit.Beans.FriendsDongtaiBean;
+import com.example.kolibreath.onit.R;
+import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
+import com.example.kolibreath.onit.Generics.Userinfo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,7 +45,7 @@ public class OnitMainActivity extends AppCompatActivity {
 
     //ip
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://10.148.124.68:3000/statuses/v1.0/")
+            .baseUrl("http://192.168.1.102:3000/statuses/v1.0/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(new OkHttpClient())
             .build();
@@ -56,7 +61,6 @@ public class OnitMainActivity extends AppCompatActivity {
                     UserInfoAdapter adapter = new UserInfoAdapter(OnitMainActivity.this, R.layout.onitdongtai_item, userinfolist
                             , userinfolist);
                     listView.setAdapter(adapter);
-                    Log.d("send ok", "handleMessage: ");
             }
         }
     };
@@ -140,7 +144,8 @@ public class OnitMainActivity extends AppCompatActivity {
             public void onResponse(Call<List<FriendsDongtaiBean>> call, Response<List<FriendsDongtaiBean>> response) {
                 List<FriendsDongtaiBean> list = response.body();
                 for (int i = 0; i < list.size(); i++) {
-                    userinfo = new Userinfo(R.drawable.avatar_default, list.get(i).getStarttime()
+                    userinfo = new Userinfo(R.drawable.avatar_default,
+                            list.get(i).getStarttime()
                             , list.get(i).getText(),
                             String.valueOf(list.get(i).getComments_count()),
                             String.valueOf(list.get(i).getAttitudes_count())
@@ -245,17 +250,28 @@ public class OnitMainActivity extends AppCompatActivity {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            Userinfo info = getItem(position);
+            info = getItem(position);
             View view = LayoutInflater.from(getContext()).inflate(resourceId, null);
 
             ImageView userAvatar = (ImageView) view.findViewById(R.id.userAvatar);
             ImageView comment = (ImageView) view.findViewById(R.id.comments);
-            TextView userName = (TextView) view.findViewById(R.id.userName);
+            final TextView userName = (TextView) view.findViewById(R.id.userName);
             TextView dongtaiTime = (TextView) view.findViewById(R.id.dongtaiTime);
             TextView content = (TextView) view.findViewById(R.id.userDongtaiContent);
             TextView deadLine = (TextView) view.findViewById(R.id.dongtaiDeadlineDate);
+            TextView deadlineString  = (TextView) view.findViewById(R.id.dongtai_deadline_string);
             final TextView favorNumbers = (TextView) view.findViewById(R.id.likeNumbers);
             TextView commentsNumbers = (TextView) view.findViewById(R.id.commentNumbers);
+
+            userAvatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(OnitMainActivity.this,OtherUserMain.class);
+                    i.putExtra("userName",userinfolist.get(0).getUsername());
+                    Log.d("username",userinfolist.get(0).getUsername());
+                    startActivity(i);
+                }
+            });
 
             final ImageView favor_or_not1 = (ImageView) view.findViewById(R.id.favor_or_not1);
 
@@ -283,10 +299,12 @@ public class OnitMainActivity extends AppCompatActivity {
                     if (clickstatus == 1) {
                         favor_or_not1.setImageResource(R.drawable.ic_favorite_red_18dp);
                         favorNumbers.setText(String.valueOf(addUserfavorNumber));
+                        favorNumbers.setTextColor(getResources().getColor(R.color.pureRed));
                         clickstatus = 0;
                     } else {
                         favor_or_not1.setImageResource(R.drawable.ic_favorite_border_white_18dp);
                         favorNumbers.setText(userinfolist.get(position).getFavorNumber());
+                        favorNumbers.setTextColor(getResources().getColor(R.color.pureWhite));
                         clickstatus = 1;
                     }
                 }
@@ -314,9 +332,12 @@ public class OnitMainActivity extends AppCompatActivity {
             switch (onitstatus) {
                 case 1:
                     layout1.setVisibility(View.VISIBLE);
+
                     break;
                 case 2:
                     layout2.setVisibility(View.VISIBLE);
+                    deadLine.setAlpha(1);
+                    deadlineString.setAlpha(1);
                     break;
                 case 3:
                     layout3.setVisibility(View.VISIBLE);

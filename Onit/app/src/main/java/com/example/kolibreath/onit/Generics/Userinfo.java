@@ -1,4 +1,4 @@
-package com.example.kolibreath.onit;
+package com.example.kolibreath.onit.Generics;
 
 /**
  * Created by kolibreath on 2017/2/4.

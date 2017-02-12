@@ -7,7 +7,8 @@
         <item name="colorPrimaryDark">@color/purePrimaryAmber</item>
         <item name="colorAccent">@color/pureOrange</item>
         <item name="android:textColorPrimary">@color/pureWhite</item>  
-      <item name="android:textColorSecondary">@color/pureWhite</item>  
+      <item name="android:textColorSecondary">@color/pureGray</item> 
+        <item name="android:textColor">?android:attr/textColorSecondary</item> 
     </style>
     <style name="MyEditText" parent="Theme.AppCompat.Light">
          <item name="colorControlNormal">@color/pureGray</item>

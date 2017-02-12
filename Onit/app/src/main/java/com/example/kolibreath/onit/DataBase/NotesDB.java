@@ -1,4 +1,4 @@
-package com.example.kolibreath.onit;
+package com.example.kolibreath.onit.DataBase;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

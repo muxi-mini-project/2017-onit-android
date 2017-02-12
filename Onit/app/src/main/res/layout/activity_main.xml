@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#222333"
-    tools:context="com.example.kolibreath.onit.MainActivity">
+    tools:context="com.example.kolibreath.onit.Activity.MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_for_loginActivity"
@@ -33,6 +33,7 @@
 
     <EditText
         android:id="@+id/users_name"
+        android:singleLine="true"
         android:textSize="29dp"
         android:textStyle="bold"
         android:textColor="#fdfdfe"
@@ -50,6 +51,7 @@
             android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/users_password"
+            android:singleLine="true"
             android:textSize="25dp"
             android:textStyle="bold"
             android:textColor="#fdfdfe"

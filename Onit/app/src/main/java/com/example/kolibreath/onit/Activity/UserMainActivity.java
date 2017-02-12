@@ -1,4 +1,4 @@
-package com.example.kolibreath.onit;
+package com.example.kolibreath.onit.Activity;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,6 +15,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.kolibreath.onit.App;
+import com.example.kolibreath.onit.DataBase.NotesDB;
+import com.example.kolibreath.onit.R;
+import com.example.kolibreath.onit.InterfaceAdapter.UserOwnDongtaiAdapter;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

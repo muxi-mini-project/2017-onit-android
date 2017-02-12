@@ -1,4 +1,4 @@
-package com.example.kolibreath.onit;
+package com.example.kolibreath.onit.InterfaceAdapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.kolibreath.onit.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

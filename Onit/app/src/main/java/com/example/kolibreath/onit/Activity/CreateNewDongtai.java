@@ -1,4 +1,4 @@
-package com.example.kolibreath.onit;
+package com.example.kolibreath.onit.Activity;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -16,6 +16,9 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.kolibreath.onit.DataBase.NotesDB;
+import com.example.kolibreath.onit.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

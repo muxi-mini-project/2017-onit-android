@@ -1,4 +1,4 @@
-package com.example.kolibreath.onit;
+package com.example.kolibreath.onit.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.kolibreath.onit.R;
 
 import static com.example.kolibreath.onit.R.id.registerXML;
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/otherUserDongtai"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -83,7 +84,7 @@
 
 
         <TextView
-            android:id="@+id/kaishishijian"
+            android:id="@+id/otherKaishishijian"
             android:text="开始时间"
             android:textSize="13dp"
             android:layout_marginTop="20dp"
@@ -95,13 +96,13 @@
         <ImageView
             android:alpha="0.5"
             android:layout_marginTop="23dp"
-            android:layout_toRightOf="@+id/kaishishijian"
+            android:layout_toRightOf="@+id/otherKaishishijian"
             android:src="@mipmap/ic_flag_white_18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/userowndongtaiTime"
-            android:layout_below="@+id/kaishishijian"
+            android:id="@+id/otherStartTime"
+            android:layout_below="@+id/otherKaishishijian"
             android:layout_toRightOf="@id/layoutworkingstatus"
             android:layout_marginLeft="15dp"
             android:text="2016年1月25日"
@@ -116,7 +117,7 @@
             android:layout_marginTop="90dp"
             android:layout_height="100dp">
             <TextView
-                android:id="@+id/userownDongtaiContent"
+                android:id="@+id/otherDongtaiContent"
                 android:text="@string/textString"
                 android:textColor="@color/pureWhite"
                 android:textSize="20dp"
@@ -125,7 +126,7 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
         <ImageView
-            android:id="@+id/favorit"
+            android:id="@+id/otherfavorit"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="197dp"
             android:alpha="0.5"
@@ -133,8 +134,8 @@
             android:layout_width="18dp"
             android:layout_height="18dp" />
         <TextView
-            android:id="@+id/fNumbers"
-            android:layout_toRightOf="@+id/favorit"
+            android:id="@+id/otherfNumbers"
+            android:layout_toRightOf="@+id/otherfavorit"
             android:layout_marginTop="195dp"
             android:layout_marginLeft="10dp"
             android:text="11"
@@ -143,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
-            android:id="@+id/comments"
+            android:id="@+id/othercomments"
             android:alpha="0.5"
             android:layout_marginLeft="82dp"
             android:layout_marginTop="200dp"
@@ -151,8 +152,8 @@
             android:layout_width="15dp"
             android:layout_height="15dp" />
         <TextView
-            android:id="@+id/cNumbers"
-            android:layout_toRightOf="@+id/favorit"
+            android:id="@+id/othercNumbers"
+            android:layout_toRightOf="@+id/otherfavorit"
             android:layout_marginTop="195dp"
             android:layout_marginLeft="75dp"
             android:text="9"
@@ -164,13 +165,13 @@
             android:id="@+id/dongtai_deadline_string"
             android:textColor="@color/pureGray"
             android:layout_marginTop="200dp"
-            android:layout_toLeftOf="@+id/userowndongtaiDeadlineDate"
+            android:layout_toLeftOf="@+id/otherDongtaiDeadLine"
             android:text="截止日期： "
             android:textSize="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/userowndongtaiDeadlineDate"
+            android:id="@+id/otherDongtaiDeadLine"
             android:layout_alignParentRight="true"
             android:layout_marginTop="200dp"
             android:layout_marginRight="15dp"
@@ -179,20 +180,10 @@
             android:textColor="@color/pureGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/changetoFinished"
-            android:background="@drawable/finished_button"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="25dp"
-            android:text="完成任务"
-            android:textColor="@color/pureBlack"
-            android:layout_width="79dp"
-            android:layout_height="38dp" />
 
         <TextView
             android:id="@+id/jieshushishijian"
-           android:visibility="gone"
+            android:visibility="gone"
             android:text="完成时间"
             android:textSize="13dp"
             android:layout_marginLeft="240dp"

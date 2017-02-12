@@ -1,4 +1,6 @@
-package com.example.kolibreath.onit;
+package com.example.kolibreath.onit.InterfaceAdapter;
+
+import com.example.kolibreath.onit.Beans.FriendsDongtaiBean;
 
 import java.util.List;
 
