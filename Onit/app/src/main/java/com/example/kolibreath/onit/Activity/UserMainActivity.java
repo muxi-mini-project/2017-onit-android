@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,17 +19,26 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.kolibreath.onit.App;
+import com.example.kolibreath.onit.Beans.UserProfileBean;
 import com.example.kolibreath.onit.DataBase.NotesDB;
-import com.example.kolibreath.onit.R;
+import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.InterfaceAdapter.UserOwnDongtaiAdapter;
+import com.example.kolibreath.onit.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by kolibreath on 2017/2/2.
  */
 
-public class UserMainActivity extends AppCompatActivity implements View.OnClickListener{
+public class UserMainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TabLayout userDongtaiList;
     private ListView lv;
@@ -38,9 +49,35 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
     private UserOwnDongtaiAdapter myAdapter;
     private CircleImageView circleImageView;
     private SQLiteDatabase db;
-    private TextView fansNumber;
+    private TextView fansNumber,atNumber;
     private String str;
-    private TextView rankDisplay,userNameDisplay;
+    private TextView rankDisplay, userNameDisplay;
+    private UserProfileBean bean;
+
+
+    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+
+    Retrofit retrofit;
+
+    ServiceInterface si;
+
+    private android.os.Handler handler = new android.os.Handler() {
+
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                   fansNumber.setText(String.valueOf(bean.getFollowers_coumnt()));
+                    atNumber.setText(String.valueOf(bean.getFolloweds_count()));
+                    rankDisplay.setText(statusResult(0));
+               //    Log.d("rankdis", statusResult(bean.getLevel()));
+                    Log.d("rankint", String.valueOf(bean.getLevel()));
+
+            }
+
+        }
+    };
+
 
     private void initWidget(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_for_usercenter);
@@ -50,11 +87,11 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         userDongtaiList = (TabLayout) findViewById(R.id.userDongtaiList);
         userDongtaiList.addTab(userDongtaiList.newTab().setText("任务列表"));
         userNameDisplay = (TextView) findViewById(R.id.users_name_display);
+        atNumber = (TextView) findViewById(R.id.attention_number);
 
         fansNumber = (TextView) findViewById(R.id.fans_number);
         rankDisplay = (TextView) findViewById(R.id.rankDisplay);
 
-        rankDisplay.setText(statusResult());
 
         lv = (ListView) findViewById(R.id.userDongtaiRealList);
         lv.setVerticalScrollBarEnabled(false);
@@ -104,10 +141,36 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         int bitmapSrc = intent.getIntExtra("key",R.drawable.java);
         circleImageView.setImageResource(bitmapSrc);
 
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://121.42.12.214:5050/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        si = retrofit.create(ServiceInterface.class);
+
+        Call<UserProfileBean> call = si.getProfile("test",getApp().setUserToken());
+        call.enqueue(new Callback<UserProfileBean>() {
+            @Override
+            public void onResponse(Call<UserProfileBean> call, Response<UserProfileBean> response) {
+                bean = response.body();
+                Log.d("profile",String.valueOf(bean.getUid()));
+                handler.sendEmptyMessage(0);
+                Message msg = new Message();
+                msg.obj = bean;
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<UserProfileBean> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
         initWidget();
 
         userNameDisplay.setText(getApp().setUserText());
-        statusResult();
 
 
     }
@@ -144,26 +207,28 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         return super.onOptionsItemSelected(item);
     }
 
-    private String statusResult(){
-        int number = Integer.parseInt(fansNumber.getText().toString());
+    private String statusResult(int level){
 
         String str1 = "初涉江湖";
         String str2 = "渐入佳境";
         String str3 = "炉火纯青";
         String str4 = "登峰造极";
 
-        if(number<5){
-            str = str1;
+        switch (level){
+            case 0:
+                rankDisplay.setText(str1);
+                break;
+            case 1:
+                rankDisplay.setText(str2);
+                break;
+            case 2:
+                rankDisplay.setText(str3);
+                break;
+            case 3:
+                rankDisplay.setText(str4);
+                break;
         }
-        if(number>6&&number<15){
-            str=str2;
-        }
-        if (number>16&&number<35){
-            str = str3;
-        }
-        if (number>36&&number<45){
-            str = str4;
-        }
+
         return str;
     }
     private App getApp(){

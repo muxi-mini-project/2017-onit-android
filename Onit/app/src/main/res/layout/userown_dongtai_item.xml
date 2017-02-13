@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -109,7 +110,7 @@
             android:textColor="@color/pureGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <RelativeLayout
+        <ScrollView
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:layout_width="wrap_content"
@@ -123,7 +124,7 @@
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </ScrollView>
         <ImageView
             android:id="@+id/favorit"
             android:layout_marginLeft="20dp"

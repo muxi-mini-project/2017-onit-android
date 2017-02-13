@@ -46,6 +46,7 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/rankDisplay"
+            android:text="初涉江湖"
             android:layout_below="@+id/users_name_display"
             android:textColor="@color/pureGray"
             android:layout_toRightOf="@id/rank"
@@ -67,7 +68,7 @@
             android:layout_below="@id/rank"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"
-            android:text="22"
+            android:text=""
             android:textColor="@color/pureGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -83,7 +84,9 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/fans_number"
-            android:text="14"
+            android:text="
+
+            "
             android:layout_toRightOf="@+id/fans"
             android:layout_marginLeft="15dp"
             android:layout_below="@+id/rank"

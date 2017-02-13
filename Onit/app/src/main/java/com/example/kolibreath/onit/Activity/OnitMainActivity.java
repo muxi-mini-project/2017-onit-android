@@ -45,7 +45,7 @@ public class OnitMainActivity extends AppCompatActivity {
 
     //ip
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.102:3000/statuses/v1.0/")
+            .baseUrl("http://10.148.80.246:3000/statuses/v1.0/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(new OkHttpClient())
             .build();
