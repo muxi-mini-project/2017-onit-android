@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,9 +49,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
     private String confirmPassword;
 
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-
     Retrofit retrofit;
-
     ServiceInterface si;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +100,8 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                             @Override
                             public void onResponse(Call<RegisterBean> call, Response<RegisterBean> response) {
                                 RegisterBean bean = response.body();
-                                Log.d("userxxx", bean.getCreated());
                                 getApp().getUserText(registeruserName.getText().toString());
-                                Intent intent = new Intent(RegisterActivity.this,OnitMainActivity.class);
+                                Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
                                 startActivity(intent);
                             }
 

@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,11 +18,23 @@ import android.widget.CalendarView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.kolibreath.onit.App;
+import com.example.kolibreath.onit.Beans.DongtaiSendBean;
 import com.example.kolibreath.onit.DataBase.NotesDB;
+import com.example.kolibreath.onit.Generics.UserDongtaiContent;
+import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.kolibreath.onit.R.id.dayofthemonth;
 import static com.example.kolibreath.onit.R.id.dongtai_canceled;
@@ -43,6 +56,10 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
     private SQLiteDatabase dbWriter;
     private NotesDB notesDB;
     private RelativeLayout createNewDongtai;
+
+    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+    Retrofit retrofit;
+    ServiceInterface si;
 
     @Override
     public void onClick(View v) {
@@ -105,6 +122,22 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
                         public void onClick(View v) {
                             addDB();
                             finish();
+
+                            UserDongtaiContent content = new UserDongtaiContent("123","1231");
+                            Call<DongtaiSendBean> call= si.sendUserDongtai(getApp().storedUsername,content,
+                                    getApp().storedUserToken);
+                            call.enqueue(new Callback<DongtaiSendBeadn>() {
+                                @Override
+                                public void onResponse(Call<DongtaiSendBean> call, Response<DongtaiSendBean> response) {
+                                    DongtaiSendBean bean = response.body();
+                                    Log.d("content", "sfaf");
+                                }
+
+                                @Override
+                                public void onFailure(Call<DongtaiSendBean> call, Throwable t) {
+
+                                }
+                            });
                             Intent intent = new Intent(CreateNewDongtai.this, OnitMainActivity.class);
                             startActivity(intent);
 
@@ -166,6 +199,16 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_dongtai);
 
+
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://121.42.12.214:5050/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        si = retrofit.create(ServiceInterface.class);
+
         calendarView = (CalendarView) findViewById(R.id.calendar);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -179,6 +222,7 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
 
         dayoftheweek = (TextView) findViewById(R.id.dayoftheweek);
         textdisplayontoolbar = (TextView) findViewById(R.id.text_display_in_toolbar);
+
 
         if (dayofthemonth<getDay()){
             Snackbar.make(relativeLayout,"少侠眼花了吧，今天的日子是"+getDay()+"号",Snackbar.LENGTH_INDEFINITE)
@@ -209,6 +253,10 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
         String str = format.format(date);
         int month = Integer.parseInt(str);
         return  month;
+    }
+
+    private App getApp(){
+        return  ((App)getApplicationContext());
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

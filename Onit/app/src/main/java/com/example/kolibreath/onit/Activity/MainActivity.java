@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,8 +81,10 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<LoginUserBean> call, Response<LoginUserBean> response) {
                                 LoginUserBean bean = response.body();
+                                Log.d("wrongbean?", bean.getToken());
                                 //把token储存在一个全局变量中
-                                getApp().getUserToken(bean.getToken());
+                               getApp().getUserToken(bean.getToken());
+                                Log.d("storedBean", getApp().storedUserToken);
                             }
 
                             @Override

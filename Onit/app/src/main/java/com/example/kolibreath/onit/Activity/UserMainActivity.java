@@ -56,9 +56,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
 
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-
     Retrofit retrofit;
-
     ServiceInterface si;
 
     private android.os.Handler handler = new android.os.Handler() {
@@ -150,12 +148,11 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
                 .build();
         si = retrofit.create(ServiceInterface.class);
 
-        Call<UserProfileBean> call = si.getProfile("test",getApp().setUserToken());
+        Call<UserProfileBean> call = si.getProfile(getApp().setUserText(),getApp().setUserToken());
         call.enqueue(new Callback<UserProfileBean>() {
             @Override
             public void onResponse(Call<UserProfileBean> call, Response<UserProfileBean> response) {
                 bean = response.body();
-                Log.d("profile",String.valueOf(bean.getUid()));
                 handler.sendEmptyMessage(0);
                 Message msg = new Message();
                 msg.obj = bean;
