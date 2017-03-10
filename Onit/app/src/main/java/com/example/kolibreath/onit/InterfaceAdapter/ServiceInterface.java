@@ -1,6 +1,7 @@
 package com.example.kolibreath.onit.InterfaceAdapter;
 
 import com.example.kolibreath.onit.Beans.DongtaiSendBean;
+import com.example.kolibreath.onit.Beans.FriendsBean;
 import com.example.kolibreath.onit.Beans.IdBean;
 import com.example.kolibreath.onit.Beans.LoginUserBean;
 import com.example.kolibreath.onit.Beans.RegisterBean;
@@ -9,9 +10,11 @@ import com.example.kolibreath.onit.Beans.UserProfileBean;
 import com.example.kolibreath.onit.Generics.LoginUser;
 import com.example.kolibreath.onit.Generics.RegisterUser;
 import com.example.kolibreath.onit.Generics.UserDongtaiContent;
+import com.example.kolibreath.onit.Generics.voidClass;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -23,7 +26,14 @@ import retrofit2.http.Query;
 
 public interface ServiceInterface {
 
+    //用户搜索好友接口
+    @GET("/api/user/search_user/")
+    Call<FriendsBean> getFriendsInfo(@Query("username")String username,
+                                     @Header("token")String token);
     //用户任务删除接口
+    @DELETE("/api/task/delete_task/")
+    Call<voidClass> deleteDongtai(@Query("id") int id,
+                                  @Header("token") String token);
     //可以获得一个动态id的list
     @GET("api/task/user_timeline/")
     Call<IdBean> getDongtaiId(@Query("username")String username,

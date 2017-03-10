@@ -11,6 +11,8 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +31,7 @@ import com.example.kolibreath.onit.Beans.SingleDongtaiBean;
 import com.example.kolibreath.onit.Beans.UserProfileBean;
 import com.example.kolibreath.onit.DataBase.NotesDB;
 import com.example.kolibreath.onit.Generics.OwnOnlineDongtai;
+import com.example.kolibreath.onit.Generics.voidClass;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.InterfaceAdapter.UserOwnDongtaiAdapter;
 import com.example.kolibreath.onit.R;
@@ -99,6 +102,14 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
                     OwnOnlineDongtai ownOnlineDongtai = new OwnOnlineDongtai();
                     Collections.sort(OList,ownOnlineDongtai);
                     lv.setAdapter(OAdapter);
+                    lv.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+                        @Override
+                        public void onCreateContextMenu(ContextMenu menu, View v,
+                                                        ContextMenu.ContextMenuInfo menuInfo) {
+                            menu.setHeaderTitle("确定删除");
+                            menu.add(0,0,0,"删除");
+                        }
+                    });
                     break;
             }
         }
@@ -499,6 +510,33 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
                 });
             }
         }).start();
+    }
+
+    public void deleteListItem(int id){
+       Call<voidClass> call = si.deleteDongtai(id,App.storedUserToken);
+        call.enqueue(new Callback<voidClass>() {
+            @Override
+            public void onResponse(Call<voidClass> call, Response<voidClass> response) {
+                Log.d("hoperight", "onResponse: ");
+            }
+
+            @Override
+            public void onFailure(Call<voidClass> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    //为什么没有完全删除？！aa
+    //如何从listview中删除一个item
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        Log.d("clicked", "onContextItemSelected: ");
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int position = menuInfo.position;
+        Log.d("position", String.valueOf(position));
+        deleteListItem(OList.get(position).getId());
+        return super.onContextItemSelected(item);
     }
     @Override
     public void onBackPressed() {
