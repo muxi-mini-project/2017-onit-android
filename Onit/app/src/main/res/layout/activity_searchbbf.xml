@@ -14,10 +14,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionSearch"
-            app:defaultQueryHint="搜索"
-            >
+            app:defaultQueryHint="搜索">
         </android.support.v7.widget.SearchView>
-
     </android.support.v7.widget.Toolbar>
+        <ListView
+            android:id="@+id/recommendList"
+            android:background="@color/pureAmber"
+            android:layout_below="@id/tool_for_friends_search"
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
+
+        </ListView>
 
 </RelativeLayout>

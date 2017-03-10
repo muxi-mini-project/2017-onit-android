@@ -7,16 +7,23 @@ import android.app.Application;
  */
 
 public class App extends Application {
-    public String storedUsername;
 
-    public String storedUserToken;
+    public static String storedUsername;
+    public static String storedUserToken;
 
-    public void getUserText(String edittext){
-        storedUsername = edittext;
+    @Override
+    public void onCreate() {
+        super.onCreate();
     }
+
     public String setUserText(){
         return storedUsername;
     }
-    public void getUserToken(String response){storedUserToken = response;}
-    public String setUserToken(){return  storedUserToken;}
+    public void getUserToken(String response){
+        storedUserToken = response;
+    }
+    public String setUserToken(){
+        return  storedUserToken;
+    }
+
 }

@@ -147,5 +147,10 @@ public class SelectAvatarActivity extends AppCompatActivity implements View.OnCl
         }
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
 

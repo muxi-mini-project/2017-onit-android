@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/user_main">
     <android.support.v7.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -84,9 +86,7 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/fans_number"
-            android:text="
-
-            "
+            android:text="            "
             android:layout_toRightOf="@+id/fans"
             android:layout_marginLeft="15dp"
             android:layout_below="@+id/rank"
@@ -109,7 +109,7 @@
             android:layout_height="50dp">
         </android.support.design.widget.TabLayout>
         <RelativeLayout
-            android:layout_below="@+id/userDongtaiList"
+            android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
@@ -124,15 +124,16 @@
         </ListView>
 
         </RelativeLayout>
+
         <Button
             android:id="@+id/assignNewOnit"
+            android:layout_alignParentBottom="true"
+             android:layout_centerHorizontal="true"
             android:text="发布新任务"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/pureBlack"
-           android:layout_centerHorizontal="true"
             android:background="@drawable/login_button"
-            android:layout_alignParentBottom="true"
             android:layout_width="100dp"
             android:layout_height="wrap_content" />
     </RelativeLayout>

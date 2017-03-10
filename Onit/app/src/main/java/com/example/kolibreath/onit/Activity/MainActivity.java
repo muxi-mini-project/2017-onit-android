@@ -1,13 +1,11 @@
 package com.example.kolibreath.onit.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.kolibreath.onit.App;
 import com.example.kolibreath.onit.Beans.LoginUserBean;
@@ -34,23 +33,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-
     Retrofit retrofit;
-
     ServiceInterface si;
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-        }
-    };
-
+    private RelativeLayout relativeLayout;
     private EditText usersName,usersPassword;
     private RelativeLayout activity_main;
 
     private void initWidget(){
+        relativeLayout = (RelativeLayout) findViewById(R.id.activity_main);
         usersPassword = (EditText)findViewById(R.id.users_password);
         usersName = (EditText) findViewById(R.id.users_name);
         TextView clicktoregister = (TextView) findViewById(R.id.clicktoregister);
@@ -65,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button readytologin = (Button) findViewById(R.id.login_button);
+        final Button readytologin = (Button) findViewById(R.id.login_button);
         readytologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 String userPassword = usersPassword.getText().toString();
                 if ((userName.length()>=4&&userName.length()<=20)){
                     if ((userPassword.length()>=3&&usersPassword.length()<=20)) {
-                    getApp().getUserText(usersName.getText().toString());
+                        App.storedUsername = usersName.getText().toString();
                         LoginUser user = new LoginUser(usersName.getText().toString(),
                                 usersPassword.getText().toString());
                         Call<LoginUserBean> call = si.getUserToken(user);
@@ -81,10 +72,22 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<LoginUserBean> call, Response<LoginUserBean> response) {
                                 LoginUserBean bean = response.body();
-                                Log.d("wrongbean?", bean.getToken());
-                                //把token储存在一个全局变量中
-                               getApp().getUserToken(bean.getToken());
-                                Log.d("storedBean", getApp().storedUserToken);
+                                if (response.code()==200){
+                                App.storedUserToken = bean.getToken();
+                                Context con=MainActivity.this;
+                                Toast.makeText(con , "登陆成功", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(MainActivity.this, OnitMainActivity.class);
+                                    startActivity(intent);
+                                }
+                                if(response.code()==502){
+                                    Snackbar.make(activity_main,"登录失败，您的账号和密码无法匹配",Snackbar.LENGTH_INDEFINITE)
+                                            .setAction("前往修改", new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    usersPassword.setText("");
+                                                }
+                                            }).show();
+                                }
                             }
 
                             @Override
@@ -92,8 +95,7 @@ public class MainActivity extends AppCompatActivity {
                                 t.printStackTrace();
                             }
                         });
-                    Intent intent = new Intent(MainActivity.this, OnitMainActivity.class);
-                    startActivity(intent);
+
                 }else{
                         Snackbar.make(activity_main,"密码长度不符合要求",Snackbar.LENGTH_INDEFINITE)
                                 .setAction("前往修改", new View.OnClickListener() {
@@ -128,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         retrofit = new Retrofit.Builder()
-        //121.42.12.214:5050
                 .baseUrl("http://121.42.12.214:5050/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -34,16 +35,16 @@ public class SearchforBBFActivity extends AppCompatActivity{
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String query) {
+                Log.d("query", query);
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                return true;
             }
         });
-
     }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

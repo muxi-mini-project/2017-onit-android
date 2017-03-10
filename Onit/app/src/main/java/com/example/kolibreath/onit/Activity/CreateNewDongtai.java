@@ -120,17 +120,20 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
                     positive.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            addDB();
-                            finish();
 
-                            UserDongtaiContent content = new UserDongtaiContent("123","1231");
+                            UserDongtaiContent content = new UserDongtaiContent(ettext.getText().toString(),
+                                    dateSpecific);
                             Call<DongtaiSendBean> call= si.sendUserDongtai(getApp().storedUsername,content,
                                     getApp().storedUserToken);
-                            call.enqueue(new Callback<DongtaiSendBeadn>() {
+                            call.enqueue(new Callback<DongtaiSendBean>() {
                                 @Override
                                 public void onResponse(Call<DongtaiSendBean> call, Response<DongtaiSendBean> response) {
                                     DongtaiSendBean bean = response.body();
+                                    addDB();
+                                    finish();
                                     Log.d("content", "sfaf");
+                            Intent intent = new Intent(CreateNewDongtai.this, OnitMainActivity.class);
+                            startActivity(intent);
                                 }
 
                                 @Override
@@ -138,8 +141,6 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
 
                                 }
                             });
-                            Intent intent = new Intent(CreateNewDongtai.this, OnitMainActivity.class);
-                            startActivity(intent);
 
                         }
                     });
@@ -273,5 +274,10 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -100,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                             @Override
                             public void onResponse(Call<RegisterBean> call, Response<RegisterBean> response) {
                                 RegisterBean bean = response.body();
-                                getApp().getUserText(registeruserName.getText().toString());
+                                App.storedUsername = userName;
                                 Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
                                 startActivity(intent);
                             }

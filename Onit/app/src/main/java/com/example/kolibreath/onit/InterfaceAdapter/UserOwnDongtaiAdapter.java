@@ -29,6 +29,7 @@ public class UserOwnDongtaiAdapter extends BaseAdapter{
     private int yearEnd, monthEnd, dayEnd;
     private int yearStart, monthStart, dayStart;
     private int clickstatus = 1;
+    private int resourceId;
 
 
     public UserOwnDongtaiAdapter(Context context, Cursor cursor) {

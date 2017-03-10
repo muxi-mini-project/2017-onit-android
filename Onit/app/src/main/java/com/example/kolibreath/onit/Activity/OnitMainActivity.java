@@ -17,10 +17,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.kolibreath.onit.Beans.FriendsDongtaiBean;
-import com.example.kolibreath.onit.R;
-import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
+import com.example.kolibreath.onit.App;
+import com.example.kolibreath.onit.Beans.IdBean;
 import com.example.kolibreath.onit.Generics.Userinfo;
+import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
+import com.example.kolibreath.onit.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,7 +29,9 @@ import java.util.Date;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -44,13 +47,10 @@ public class OnitMainActivity extends AppCompatActivity {
     private Userinfo userinfo;
 
     //ip
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://10.148.80.246:3000/statuses/v1.0/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(new OkHttpClient())
-            .build();
+    Retrofit retrofit ;
+    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 
-    ServiceInterface si = retrofit.create(ServiceInterface.class);
+    ServiceInterface si;
 
     private android.os.Handler handler = new android.os.Handler() {
 
@@ -138,8 +138,31 @@ public class OnitMainActivity extends AppCompatActivity {
 
         initWiget();
 
-        Call<List<FriendsDongtaiBean>> call = si.getFriends();
-        call.enqueue(new retrofit2.Callback<List<FriendsDongtaiBean>>() {
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://121.42.12.214:5050/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        si = retrofit.create(ServiceInterface.class);
+
+        Call<IdBean> call1 = si.getDongtaiId(getApp().storedUsername,getApp().storedUserToken);
+        call1.enqueue(new Callback<IdBean>() {
+            @Override
+            public void onResponse(Call<IdBean> call, Response<IdBean> response) {
+                IdBean bean = response.body();
+             //   List<Integer> list = bean.getResult();
+             //   Log.d("ensure",String.valueOf(list.size()));
+            }
+
+            @Override
+            public void onFailure(Call<IdBean> call, Throwable t) {
+
+            }
+        });
+
+        /*call.enqueue(new retrofit2.Callback<List<FriendsDongtaiBean>>() {
             @Override
             public void onResponse(Call<List<FriendsDongtaiBean>> call, Response<List<FriendsDongtaiBean>> response) {
                 List<FriendsDongtaiBean> list = response.body();
@@ -167,6 +190,7 @@ public class OnitMainActivity extends AppCompatActivity {
                 Log.d("run fail", "onFailure: ");
             }
         });
+        */
 
     }
 
@@ -345,6 +369,9 @@ public class OnitMainActivity extends AppCompatActivity {
             }
             return view;
         }
+    }
+    private App getApp(){
+        return ((App)getApplicationContext());
     }
 }
 

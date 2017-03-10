@@ -1,15 +1,14 @@
 package com.example.kolibreath.onit.InterfaceAdapter;
 
 import com.example.kolibreath.onit.Beans.DongtaiSendBean;
-import com.example.kolibreath.onit.Beans.FriendsDongtaiBean;
+import com.example.kolibreath.onit.Beans.IdBean;
 import com.example.kolibreath.onit.Beans.LoginUserBean;
 import com.example.kolibreath.onit.Beans.RegisterBean;
+import com.example.kolibreath.onit.Beans.SingleDongtaiBean;
 import com.example.kolibreath.onit.Beans.UserProfileBean;
 import com.example.kolibreath.onit.Generics.LoginUser;
 import com.example.kolibreath.onit.Generics.RegisterUser;
 import com.example.kolibreath.onit.Generics.UserDongtaiContent;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -23,8 +22,18 @@ import retrofit2.http.Query;
  */
 
 public interface ServiceInterface {
-    @GET("friends_timeline")
-    Call<List<FriendsDongtaiBean>> getFriends();
+
+    //用户任务删除接口
+    //可以获得一个动态id的list
+    @GET("api/task/user_timeline/")
+    Call<IdBean> getDongtaiId(@Query("username")String username,
+                                   @Header("token") String token);
+    //获取id所对应的单条任务
+    @GET("api/task/get_task/")
+    Call<SingleDongtaiBean> getSingleDongtai(@Query("username")String username,
+                                             @Query("id")int id,
+                                             @Header("token")String token);
+
 
     @POST("api/signup/")
     Call<RegisterBean> getRegisterInfo(@Body RegisterUser user);
