@@ -22,8 +22,7 @@
             android:background="@color/pureAmber"
             android:layout_below="@id/tool_for_friends_search"
             android:layout_width="match_parent"
-            android:layout_height="160dp">
-
+            android:layout_height="match_parent">
         </ListView>
 
 </RelativeLayout>

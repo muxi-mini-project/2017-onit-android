@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.kolibreath.onit.App;
 import com.example.kolibreath.onit.Beans.RegisterBean;
+import com.example.kolibreath.onit.Generics.ConnectionDetector;
 import com.example.kolibreath.onit.Generics.RegisterUser;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.R;
@@ -78,11 +79,6 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
 
         confirmUserPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
         registerUserPasswWord.setTransformationMethod(PasswordTransformationMethod.getInstance());
-
-
-
-
-
     }
     @Override
     public void onClick(View v) {
@@ -91,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         userName = registeruserName.getText().toString();
         userPassword = registerUserPasswWord.getText().toString();
         confirmPassword = confirmUserPassword.getText().toString();
+                ConnectionDetector.makeSnackBar(register,getApplicationContext());
                 if (userName.length() >= 4 && userName.length() < 20) {
                 if ((userPassword.length()>=8&&userPassword.length()<16)){
                     if (userPassword.equals(confirmPassword)){
@@ -142,8 +139,6 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
 
     }
     }
-    private App getApp(){
-        return  ((App)getApplicationContext());
-    }
+
 }
 

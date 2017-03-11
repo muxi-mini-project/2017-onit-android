@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.kolibreath.onit.App;
 import com.example.kolibreath.onit.Beans.LoginUserBean;
+import com.example.kolibreath.onit.Generics.ConnectionDetector;
 import com.example.kolibreath.onit.Generics.LoginUser;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.R;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String userName = usersName.getText().toString();
                 String userPassword = usersPassword.getText().toString();
+                ConnectionDetector.makeSnackBar(activity_main,getApplicationContext());
                 if ((userName.length()>=4&&userName.length()<=20)){
                     if ((userPassword.length()>=3&&usersPassword.length()<=20)) {
                         App.storedUsername = usersName.getText().toString();
@@ -125,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();

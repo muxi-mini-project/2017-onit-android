@@ -2,6 +2,7 @@ package com.example.kolibreath.onit.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -49,7 +50,24 @@ public class SearchforBBFActivity extends AppCompatActivity{
     FriendsBean bean;
     FriendsAdapter adapter;
 
-    private void initSearchView(){
+
+    //为什么没有接收到handler发送的消息
+    private android.os.Handler handler = new android.os.Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch(msg.what){
+                case 0:
+            Log.d("getMessage", "handleMessage: ");
+            adapter  = new FriendsAdapter(SearchforBBFActivity.this,R.layout.search_item,friendsList);
+            listView.setAdapter(adapter);
+            Log.d("logusername",String.valueOf(friendsList.size()));
+            break;
+            }
+        }
+    };
+
+        private void initSearchView(){
         //设置searchView相关细节
         searchView = (SearchView) findViewById(R.id.searchView_for_friends);
         searchView.setIconifiedByDefault(true);
@@ -80,7 +98,6 @@ public class SearchforBBFActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
     private void SearchForFriends(){
         Call<FriendsBean> call = si.getFriendsInfo(queryText,App.storedUserToken);
         Log.d("queryText", queryText);
@@ -89,9 +106,11 @@ public class SearchforBBFActivity extends AppCompatActivity{
             @Override
             public void onResponse(Call<FriendsBean> call, Response<FriendsBean> response) {
                 bean= response.body();
+                handler.sendEmptyMessage(0);
                 friendsList.add(bean);
-                String name = bean.getUsername();
-                Log.d("queryusername" ,name);
+                Message msg = new Message();
+                msg.obj = friendsList;
+                handler.sendMessage(msg);
             }
             @Override
             public void onFailure(Call<FriendsBean> call, Throwable t) {
@@ -110,9 +129,6 @@ public class SearchforBBFActivity extends AppCompatActivity{
             SearchForFriends();
         }
 
-        adapter  = new FriendsAdapter(SearchforBBFActivity.this,R.layout.search_item,friendsList);
-
-        listView.setAdapter(adapter);
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         retrofit = new Retrofit.Builder()
@@ -138,7 +154,6 @@ public class SearchforBBFActivity extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
-
     class FriendsAdapter extends ArrayAdapter<FriendsBean>{
         private int resourceId;
         public FriendsAdapter(Context context, int resource, List<FriendsBean> Objects){

@@ -30,6 +30,7 @@ import com.example.kolibreath.onit.Beans.IdBean;
 import com.example.kolibreath.onit.Beans.SingleDongtaiBean;
 import com.example.kolibreath.onit.Beans.UserProfileBean;
 import com.example.kolibreath.onit.DataBase.NotesDB;
+import com.example.kolibreath.onit.Generics.ConnectionDetector;
 import com.example.kolibreath.onit.Generics.OwnOnlineDongtai;
 import com.example.kolibreath.onit.Generics.voidClass;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
@@ -120,6 +121,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.usermain_activity);
         super.onCreate(savedInstanceState);
+
         notesDB = new NotesDB(this);
         dbReader = notesDB.getReadableDatabase();
 
@@ -402,9 +404,8 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
     //position是任务的id
     private SingleDongtaiBean selectEachDongtai(final int position){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.user_main);
+        ConnectionDetector.makeSnackBar(layout,getApplicationContext());
                 Call<SingleDongtaiBean> call3 = si.getSingleDongtai(App.storedUsername,
                         idbean.getResult().get(position),
                         App.storedUserToken);
@@ -418,8 +419,6 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
                     }
                 });
-            }
-        }).start();
 
         return bean3;
     }
@@ -437,13 +436,11 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
                         OwnOnlineDongtai dongtai = new OwnOnlineDongtai(1, sbean.getCreated_at(), sbean.getComments_count(),
                                 0, sbean.getText(), sbean.getDeadline(),id);
                         OList.add(dongtai);
-                        if(OList.size()==idbean.getResult().size()){
                         handler.sendEmptyMessage(2);
                         Message msg = new Message();
                         msg.obj =  OList;
                         handler.sendMessage(msg);
 
-                        }
                     }
 
                     @Override
@@ -512,12 +509,14 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         }).start();
     }
 
-    public void deleteListItem(int id){
+    public void deleteListItem(final int id){
        Call<voidClass> call = si.deleteDongtai(id,App.storedUserToken);
         call.enqueue(new Callback<voidClass>() {
             @Override
             public void onResponse(Call<voidClass> call, Response<voidClass> response) {
-                Log.d("hoperight", "onResponse: ");
+                LinearLayout layout = (LinearLayout) findViewById(R.id.user_main);
+                String text = "这一条任务"+id+"已经被删除";
+               Snackbar.make(layout,text,Snackbar.LENGTH_SHORT).show();
             }
 
             @Override
@@ -528,7 +527,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
     }
 
     //为什么没有完全删除？！aa
-    //如何从listview中删除一个item
+    //如何从listview中删除一个item 感觉好像是后台的问题
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         Log.d("clicked", "onContextItemSelected: ");
