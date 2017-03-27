@@ -1,5 +1,6 @@
 package com.example.kolibreath.onit.InterfaceAdapter;
 
+import com.example.kolibreath.onit.Beans.AttentionBean;
 import com.example.kolibreath.onit.Beans.DongtaiSendBean;
 import com.example.kolibreath.onit.Beans.FriendsBean;
 import com.example.kolibreath.onit.Beans.IdBean;
@@ -25,6 +26,12 @@ import retrofit2.http.Query;
  */
 
 public interface ServiceInterface {
+
+    //用户的好友关注接口
+    //
+    @GET("/api/friendship/user_following/")
+    Call<AttentionBean> getAttentionUser(@Query("username")String username,
+                                         @Header("token")String token);
 
     //用户搜索好友接口
     @GET("/api/user/search_user/")

@@ -12,12 +12,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.kolibreath.onit.App;
+import com.example.kolibreath.onit.Utils.App;
 import com.example.kolibreath.onit.Beans.RegisterBean;
 import com.example.kolibreath.onit.Generics.ConnectionDetector;
 import com.example.kolibreath.onit.Generics.RegisterUser;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.R;
+import com.example.kolibreath.onit.Utils.SeverConnection;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -41,31 +42,20 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
     private TextView clicktoLogin;
     private Button registerforsure;
     private boolean textResult1 = false;
+    private SeverConnection severConnection = new SeverConnection();
 
 
     private RelativeLayout register;
 
     private String userName;
     private String userPassword;
-    private String confirmPassword;
+    private String confirmPassword ;
 
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     Retrofit retrofit;
     ServiceInterface si;
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://121.42.12.214:5050/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
-        si = retrofit.create(ServiceInterface.class);
-
+    private void initWidget(){
         registeruserName = (EditText) findViewById(R.id.registerUsername1);
         confirmUserPassword = (EditText) findViewById(R.id.registerConfirmPassword3);
         registerUserPasswWord = (EditText) findViewById(R.id.registerUsersPassword2);
@@ -75,10 +65,29 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         registerforsure = (Button) findViewById(R.id.registerForSure);
         registerforsure.setOnClickListener(this);
 
-
-
         confirmUserPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
         registerUserPasswWord.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+        //这里为什么会报错？
+        //这里报了一个空对象的错误
+        //severConnection.initSever(interceptor,retrofit);
+
+    }
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+
+        initWidget();
+
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(severConnection.getServer())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        si = retrofit.create(ServiceInterface.class);
     }
     @Override
     public void onClick(View v) {
@@ -98,6 +107,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                             public void onResponse(Call<RegisterBean> call, Response<RegisterBean> response) {
                                 RegisterBean bean = response.body();
                                 App.storedUsername = userName;
+                                Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
                                 startActivity(intent);
                             }
@@ -108,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                             }
                         });
 
-                        Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
+
                     }else {
                         Snackbar.make(register,"两次输入的密码不一致",Snackbar.LENGTH_INDEFINITE).
                                 setAction("重新输入", new View.OnClickListener() {

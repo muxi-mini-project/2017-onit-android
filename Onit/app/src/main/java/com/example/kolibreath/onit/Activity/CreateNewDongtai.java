@@ -18,7 +18,7 @@ import android.widget.CalendarView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.kolibreath.onit.App;
+import com.example.kolibreath.onit.Utils.App;
 import com.example.kolibreath.onit.Beans.DongtaiSendBean;
 import com.example.kolibreath.onit.DataBase.NotesDB;
 import com.example.kolibreath.onit.Generics.UserDongtaiContent;

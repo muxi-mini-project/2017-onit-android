@@ -17,8 +17,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.kolibreath.onit.App;
-import com.example.kolibreath.onit.Beans.IdBean;
 import com.example.kolibreath.onit.Generics.Userinfo;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.R;
@@ -30,9 +28,6 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -147,51 +142,6 @@ public class OnitMainActivity extends AppCompatActivity {
                 .build();
         si = retrofit.create(ServiceInterface.class);
 
-        Call<IdBean> call1 = si.getDongtaiId(getApp().storedUsername,getApp().storedUserToken);
-        call1.enqueue(new Callback<IdBean>() {
-            @Override
-            public void onResponse(Call<IdBean> call, Response<IdBean> response) {
-                IdBean bean = response.body();
-             //   List<Integer> list = bean.getResult();
-             //   Log.d("ensure",String.valueOf(list.size()));
-            }
-
-            @Override
-            public void onFailure(Call<IdBean> call, Throwable t) {
-
-            }
-        });
-
-        /*call.enqueue(new retrofit2.Callback<List<FriendsDongtaiBean>>() {
-            @Override
-            public void onResponse(Call<List<FriendsDongtaiBean>> call, Response<List<FriendsDongtaiBean>> response) {
-                List<FriendsDongtaiBean> list = response.body();
-                for (int i = 0; i < list.size(); i++) {
-                    userinfo = new Userinfo(R.drawable.avatar_default,
-                            list.get(i).getStarttime()
-                            , list.get(i).getText(),
-                            String.valueOf(list.get(i).getComments_count()),
-                            String.valueOf(list.get(i).getAttitudes_count())
-                            , list.get(i).getDeadline(),
-                            resultStatus(list.get(i).getStarttime(), list.get(i).getDeadline()
-                                    , getDate())
-                            , list.get(i).getUser_idstr());
-                    userinfolist.add(userinfo);
-                }
-                handler.sendEmptyMessage(0);
-                Message msg = new Message();
-                msg.obj = userinfolist;
-                handler.sendMessage(msg);
-                Log.d("run succeed", list.get(0).getText());
-            }
-
-            @Override
-            public void onFailure(Call<List<FriendsDongtaiBean>> call, Throwable t) {
-                Log.d("run fail", "onFailure: ");
-            }
-        });
-        */
-
     }
 
     private int resultStatus(String startTime, String stopTime, String timethis) {
@@ -245,7 +195,6 @@ public class OnitMainActivity extends AppCompatActivity {
             status = 3;
         }
         return status;
-
     }
 
     private String getDate() {
@@ -270,6 +219,7 @@ public class OnitMainActivity extends AppCompatActivity {
             super(context, resourceId, object);
             this.resourceId = resourceId;
             userinfoList = list;
+
         }
 
         @Override
@@ -370,8 +320,7 @@ public class OnitMainActivity extends AppCompatActivity {
             return view;
         }
     }
-    private App getApp(){
-        return ((App)getApplicationContext());
-    }
+
+
 }
 

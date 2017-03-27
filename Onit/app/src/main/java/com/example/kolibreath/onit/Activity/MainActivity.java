@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.kolibreath.onit.App;
+import com.example.kolibreath.onit.Utils.App;
 import com.example.kolibreath.onit.Beans.LoginUserBean;
 import com.example.kolibreath.onit.Generics.ConnectionDetector;
 import com.example.kolibreath.onit.Generics.LoginUser;

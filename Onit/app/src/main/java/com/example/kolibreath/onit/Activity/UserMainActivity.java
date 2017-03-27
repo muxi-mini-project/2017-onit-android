@@ -25,12 +25,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.kolibreath.onit.App;
+import com.example.kolibreath.onit.Utils.App;
 import com.example.kolibreath.onit.Beans.IdBean;
 import com.example.kolibreath.onit.Beans.SingleDongtaiBean;
 import com.example.kolibreath.onit.Beans.UserProfileBean;
 import com.example.kolibreath.onit.DataBase.NotesDB;
-import com.example.kolibreath.onit.Generics.ConnectionDetector;
 import com.example.kolibreath.onit.Generics.OwnOnlineDongtai;
 import com.example.kolibreath.onit.Generics.voidClass;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
@@ -121,6 +120,8 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.usermain_activity);
         super.onCreate(savedInstanceState);
+
+
 
         notesDB = new NotesDB(this);
         dbReader = notesDB.getReadableDatabase();
@@ -404,8 +405,9 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
     //position是任务的id
     private SingleDongtaiBean selectEachDongtai(final int position){
-        LinearLayout layout = (LinearLayout) findViewById(R.id.user_main);
-        ConnectionDetector.makeSnackBar(layout,getApplicationContext());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
                 Call<SingleDongtaiBean> call3 = si.getSingleDongtai(App.storedUsername,
                         idbean.getResult().get(position),
                         App.storedUserToken);
@@ -419,6 +421,8 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
                     }
                 });
+            }
+        }).start();
 
         return bean3;
     }
