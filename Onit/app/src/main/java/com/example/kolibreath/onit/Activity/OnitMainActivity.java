@@ -3,7 +3,6 @@ package com.example.kolibreath.onit.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,9 +16,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.kolibreath.onit.Beans.UserAttentionBean;
 import com.example.kolibreath.onit.Generics.Userinfo;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.R;
+import com.example.kolibreath.onit.Utils.App;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +29,9 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -38,8 +42,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OnitMainActivity extends AppCompatActivity {
 
-    private ListView listView;
+    private int[] userList;
     private Userinfo userinfo;
+    //用户关注的其他用户的列表
+    private List<Integer> userAttentionList;
 
     //ip
     Retrofit retrofit ;
@@ -47,19 +53,21 @@ public class OnitMainActivity extends AppCompatActivity {
 
     ServiceInterface si;
 
-    private android.os.Handler handler = new android.os.Handler() {
-
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 0:
-                    UserInfoAdapter adapter = new UserInfoAdapter(OnitMainActivity.this, R.layout.onitdongtai_item, userinfolist
-                            , userinfolist);
-                    listView.setAdapter(adapter);
+    private void getUserAttetionUserList(){
+        Call<UserAttentionBean> call = si.getUserAttentionList(App.storedUsername);
+        call.enqueue(new Callback<UserAttentionBean>() {
+            @Override
+            public void onResponse(Call<UserAttentionBean> call, Response<UserAttentionBean> response) {
+                UserAttentionBean bean = response.body();
+                userList = bean.getUsers_ids();
             }
-        }
-    };
 
+            @Override
+            public void onFailure(Call<UserAttentionBean> call, Throwable t) {
+
+            }
+        });
+    }
     private List<Userinfo> userinfolist = new ArrayList<>();
 
     private void initWiget() {

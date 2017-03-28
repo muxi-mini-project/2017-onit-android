@@ -2,7 +2,6 @@ package com.example.kolibreath.onit.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.kolibreath.onit.Beans.FriendsBean;
 import com.example.kolibreath.onit.Generics.FoundUser;
+import com.example.kolibreath.onit.Generics.voidClass;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.R;
 import com.example.kolibreath.onit.Utils.App;
@@ -43,7 +44,7 @@ import static com.example.kolibreath.onit.R.layout.activity_searchbbf;
  * Created by kolibreath on 2017/2/2.
  */
 
-public class SearchforBBFActivity extends AppCompatActivity{
+public class SearchforBBFActivity extends AppCompatActivity implements View.OnClickListener{
 
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     Retrofit retrofit;
@@ -56,21 +57,9 @@ public class SearchforBBFActivity extends AppCompatActivity{
     FriendsAdapter adapter;
     RelativeLayout layout;
     private int count = 0;
+    private Button testForAttention,cancelTestForAttention;
 
     //为什么没有接收到handler发送的消息
-    private android.os.Handler handler = new android.os.Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch(msg.what){
-                case 0:
-            Log.d("getMessage", "handleMessage: ");
-
-            Log.d("logusername",String.valueOf(friendsList.size()));
-            break;
-            }
-        }
-    };
 
     private void initSearchView(){
         //设置searchView相关细节
@@ -108,10 +97,67 @@ public class SearchforBBFActivity extends AppCompatActivity{
     private void initWidget(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_for_friends_search);
         listView = (ListView) findViewById(R.id.recommendList);
+
+        //设置关注或者是不关注
+        /*
+        only for TEST!! HERE
+         */
+        testForAttention = (Button) findViewById(R.id.testForAttention);
+        testForAttention.setOnClickListener(this);
+
+        cancelTestForAttention = (Button) findViewById(R.id.cancelTestForAttention);
+        cancelTestForAttention.setOnClickListener(this);
+
+        //绑定界面出了问题
+        //layout = (RelativeLayout) findViewById(R.layout.activity_searchbbf);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        // layout = (RelativeLayout) findViewById(activity_searchbbfXML);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.testForAttention:
+                getUserAttention();
+                break;
+            case R.id.cancelTestForAttention:
+                cancelUserAttention();
+                break;
+        }
+    }
+
+    private void getUserAttention(){
+        Call<voidClass> call = si.getUserAttention("ybao","test",App.storedUserToken);
+        call.enqueue(new Callback<voidClass>() {
+            @Override
+            public void onResponse(Call<voidClass> call, Response<voidClass> response) {
+                Log.d("attentionSuccess", "onResponse: ");
+            }
+            @Override
+            public void onFailure(Call<voidClass> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void cancelUserAttention(){
+        //这里都是假设关注和取消关注的用户都是ybao
+        Call<voidClass> call = si.cancelUserAttension("ybao");
+        call.enqueue(new Callback<voidClass>() {
+            @Override
+            public void onResponse(Call<voidClass> call, Response<voidClass> response) {
+                Log.d("cancelHasBeenSaved", "onResponse: ");
+               // Snackbar.make().show();
+            }
+
+            @Override
+            public void onFailure(Call<voidClass> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void SearchForFriends(){
         Call<FriendsBean> call = si.getFriendsInfo(queryText,App.storedUserToken);
         call.enqueue(new Callback<FriendsBean>() {
