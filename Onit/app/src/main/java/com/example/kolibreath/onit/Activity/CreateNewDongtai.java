@@ -123,8 +123,8 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
 
                             UserDongtaiContent content = new UserDongtaiContent(ettext.getText().toString(),
                                     dateSpecific);
-                            Call<DongtaiSendBean> call= si.sendUserDongtai(getApp().storedUsername,content,
-                                    getApp().storedUserToken);
+                            Call<DongtaiSendBean> call= si.sendUserDongtai(App.storedUsername,content,
+                                    App.storedUserToken);
                             call.enqueue(new Callback<DongtaiSendBean>() {
                                 @Override
                                 public void onResponse(Call<DongtaiSendBean> call, Response<DongtaiSendBean> response) {
@@ -256,9 +256,7 @@ public class CreateNewDongtai extends AppCompatActivity implements View.OnClickL
         return  month;
     }
 
-    private App getApp(){
-        return  ((App)getApplicationContext());
-    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_create, menu);

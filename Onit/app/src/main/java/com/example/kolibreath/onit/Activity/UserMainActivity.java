@@ -1,14 +1,21 @@
 package com.example.kolibreath.onit.Activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,11 +28,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.kolibreath.onit.Utils.App;
 import com.example.kolibreath.onit.Beans.IdBean;
 import com.example.kolibreath.onit.Beans.SingleDongtaiBean;
 import com.example.kolibreath.onit.Beans.UserProfileBean;
@@ -35,7 +42,9 @@ import com.example.kolibreath.onit.Generics.voidClass;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.InterfaceAdapter.UserOwnDongtaiAdapter;
 import com.example.kolibreath.onit.R;
+import com.example.kolibreath.onit.Utils.App;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -76,6 +85,11 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
     private List<Integer> idList;
     private SingleDongtaiBean bean3;
     private List<Integer> rankList;
+
+    private AlertDialog alertDialog;
+    private final int  ALBUM_OK = 1, CAMERA_OK = 2,CUT_OK = 3;
+    private File file;
+    private Button button1,button2;
 
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     Retrofit retrofit;
@@ -144,7 +158,6 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         getUserDongtaiId();
         }
 
-
         class OwnOnlineAdapter extends ArrayAdapter<OwnOnlineDongtai> {
             private int resourceId;
             private int clickstatus = 1;
@@ -167,7 +180,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
                  timetv.setText(dongtai.getStartTime());
                  endtime.setText(dongtai.getDeadline());
 
-           /*
+
             final TextView jiezhishijian = (TextView) layout.findViewById(R.id.jieshushishijian);
             final TextView usedongtaiFinishedtime = (TextView) layout.findViewById(R.id.userowndongtaiFinishedTime);
 
@@ -198,8 +211,6 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
             });
 
-
-*/
                 //从数据库中读取数据 把提取出来的时间 和 截止时间比较
 
            /*
@@ -290,6 +301,10 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         userNameDisplay = (TextView) findViewById(R.id.users_name_display);
         atNumber = (TextView) findViewById(R.id.attention_number);
 
+        file = new File(Environment.getExternalStorageDirectory(), "temp.jpg");
+        file.delete();
+
+
         fansNumber = (TextView) findViewById(R.id.fans_number);
         rankDisplay = (TextView) findViewById(R.id.rankDisplay);
 
@@ -317,6 +332,8 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         });
 
     }
+
+
     private void changAvatar(){
 
         circleImageView = (CircleImageView) findViewById(R.id.user_avatar);
@@ -333,17 +350,6 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(i);
         }
     }
-
-    //从数据库中读取数据并且进行判断
-
-    /*
-    public void selectDB(){
-        Cursor cursor = dbReader.query(NotesDB.TABLE_NAME,null,null,null,null,null,null);
-        myAdapter = new UserOwnDongtaiAdapter(this,cursor);
-        lv.setAdapter(myAdapter);
-
-    }
-    */
 
     protected void onResume(){
         super.onResume();
@@ -371,9 +377,30 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(logoutintent);
                 break;
             case R.id.set_avatar:
-                Intent i = new Intent(UserMainActivity.this,SelectAvatarActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                startActivity(i);
+                    Log.d("alertCreated", "onOptionsItemSelected: ");
+                    String selctions[] = {"从相册选择","相机拍照"};
+                    Context context = UserMainActivity.this;
+                   AlertDialog.Builder adb =  new AlertDialog.Builder(context).
+                            setTitle("选择下面的操作").
+                            setItems(selctions, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    switch (which){
+                                        case 0:
+                                            Intent albumIntent = new Intent(Intent.ACTION_PICK, null);
+                                            albumIntent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                                            startActivityForResult(albumIntent, ALBUM_OK);
+                                            break;
+                                        case 1:
+                                            break;
+                                    }
+                                }
+                            });
+                adb.show();
+
+               // Intent i = new Intent(UserMainActivity.this,SelectAvatarActivity.class);
+                //i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                //startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -454,6 +481,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
                 });
             }
         }
+
     private void getUserProfile(){
         new Thread(new Runnable() {
             @Override
@@ -480,6 +508,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
 
     }
+
     private void getUserDongtaiId(){
         //获取用户的id
         new Thread(new Runnable() {
@@ -534,10 +563,8 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
     //如何从listview中删除一个item 感觉好像是后台的问题
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        Log.d("clicked", "onContextItemSelected: ");
         AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int position = menuInfo.position;
-        Log.d("position", String.valueOf(position));
         deleteListItem(OList.get(position).getId());
         return super.onContextItemSelected(item);
     }
@@ -546,4 +573,59 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         super.onBackPressed();
         finish();
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        System.out.println("requestCode = " + requestCode);
+        switch (requestCode) {
+            // 如果是直接从相册获取
+            case ALBUM_OK:
+                //从相册中获取到图片了，才执行裁剪动作
+                if (data != null) {
+                    clipPhoto(data.getData());
+                }
+                break;
+            // 如果是调用相机拍照时
+            case CAMERA_OK:
+                // 当拍照到照片时进行裁减，否则不执行操作
+                if (file.exists()) {
+                    clipPhoto(Uri.fromFile(file));//开始裁减图片
+                }
+                break;
+            // 取得裁剪后的图片，这里将其设置到imageview中
+            case CUT_OK:
+                if (data != null) {
+                    setPicToView(data);
+                }
+                break;
+            default:
+                break;
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    public void clipPhoto(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        // 下面这个crop = true是设置在开启的Intent中设置显示的VIEW可裁剪
+        intent.putExtra("crop", "true");
+        // aspectX aspectY 是宽高的比例，这里设置的是正方形（长宽比为1:1）
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 200);
+        intent.putExtra("outputY", 200);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, CUT_OK);
+    }
+
+    private void setPicToView(Intent picdata) {
+        Bundle extras = picdata.getExtras();
+        if (extras != null) {
+            Bitmap photo = extras.getParcelable("data");
+            Drawable drawable = new BitmapDrawable(photo);
+            circleImageView.setImageDrawable(drawable);
+            file.delete();//设置成功后清除之前的照片文件
+        }
+    }
+
 }

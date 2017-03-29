@@ -50,35 +50,30 @@
         </LinearLayout>
 
     </LinearLayout>
-    <RelativeLayout
-        android:id="@+id/toAttention"
-        android:layout_width="match_parent"
-        android:layout_height="80dp">
+
         <Button
+            android:id="@+id/confirmToFollow"
             android:background="@drawable/confirm_attention_at__search_friends"
             android:layout_alignParentRight="true"
             android:text="关注"
             android:textColor="@color/pureOrange"
             android:textSize="15dp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
             android:layout_width="70dp"
             android:layout_height="40dp" />
-    </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/alreadyAttention"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="80dp">
+
         <Button
+            android:id="@+id/cancelToFollow"
+            android:visibility="gone"
             android:background="@drawable/already_attention"
             android:layout_alignParentRight="true"
             android:text="已关注"
             android:textColor="@color/pureRed"
             android:textSize="15dp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
             android:layout_width="70dp"
             android:layout_height="40dp" />
-    </RelativeLayout>
+
 
 </RelativeLayout>

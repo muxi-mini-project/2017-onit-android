@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -44,7 +45,7 @@ import static com.example.kolibreath.onit.R.layout.activity_searchbbf;
  * Created by kolibreath on 2017/2/2.
  */
 
-public class SearchforBBFActivity extends AppCompatActivity implements View.OnClickListener{
+public class SearchforBBFActivity extends AppCompatActivity {
 
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
     Retrofit retrofit;
@@ -57,7 +58,7 @@ public class SearchforBBFActivity extends AppCompatActivity implements View.OnCl
     FriendsAdapter adapter;
     RelativeLayout layout;
     private int count = 0;
-    private Button testForAttention,cancelTestForAttention;
+
 
     //为什么没有接收到handler发送的消息
 
@@ -77,11 +78,8 @@ public class SearchforBBFActivity extends AppCompatActivity implements View.OnCl
             @Override
             public boolean onQueryTextSubmit(String query) {
                 queryText = query;
-                Log.d(queryText, "onQueryTextSubmit: ");
-                if(friendsList.size()!=1){
-                    //需要再点击关注之后就要清空list
-                    SearchForFriends();
-                }
+                SearchForFriends();
+                friendsList.clear();
                 return false;
             }
             @Override
@@ -102,29 +100,12 @@ public class SearchforBBFActivity extends AppCompatActivity implements View.OnCl
         /*
         only for TEST!! HERE
          */
-        testForAttention = (Button) findViewById(R.id.testForAttention);
-        testForAttention.setOnClickListener(this);
-
-        cancelTestForAttention = (Button) findViewById(R.id.cancelTestForAttention);
-        cancelTestForAttention.setOnClickListener(this);
 
         //绑定界面出了问题
         //layout = (RelativeLayout) findViewById(R.layout.activity_searchbbf);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-       // layout = (RelativeLayout) findViewById(activity_searchbbfXML);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.testForAttention:
-                getUserAttention();
-                break;
-            case R.id.cancelTestForAttention:
-                cancelUserAttention();
-                break;
-        }
+        layout = (RelativeLayout) findViewById(R.id.searchForBBF);
     }
 
     private void getUserAttention(){
@@ -163,16 +144,17 @@ public class SearchforBBFActivity extends AppCompatActivity implements View.OnCl
         call.enqueue(new Callback<FriendsBean>() {
             @Override
             public void onResponse(Call<FriendsBean> call, Response<FriendsBean> response) {
-                Log.d("research", "onResponse: ");
-                bean= response.body();
-                FoundUser foundUser = new FoundUser(bean.getUsername(),bean.getLevel());
-                friendsList.add(foundUser);
-                adapter  = new FriendsAdapter(SearchforBBFActivity.this,R.layout.search_item,friendsList);
-                listView.setAdapter(adapter);
+                if(response.code()==200) {
+                    bean = response.body();
+                    FoundUser foundUser = new FoundUser(bean.getUsername(), bean.getLevel());
+                    friendsList.add(foundUser);
+                    adapter = new FriendsAdapter(SearchforBBFActivity.this, R.layout.search_item, friendsList);
+                    listView.setAdapter(adapter);
+                }
             }
             @Override
             public void onFailure(Call<FriendsBean> call, Throwable t) {
-             //   Snackbar.make()
+                Snackbar.make(layout,"不存在这个用户",Snackbar.LENGTH_SHORT).show();
             }
         });
     }
@@ -180,6 +162,7 @@ public class SearchforBBFActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_searchbbf);
+
         initWidget();
         initSearchView();
 
@@ -230,23 +213,26 @@ public class SearchforBBFActivity extends AppCompatActivity implements View.OnCl
             View view = LayoutInflater.from(getContext()).inflate(resourceId,null);
             TextView getusername = (TextView) view.findViewById(R.id.search_user_id);
             TextView userRank = (TextView) view.findViewById(R.id.search_user_rank);
-            final RelativeLayout layout1 = (RelativeLayout) view.findViewById(R.id.toAttention);
-            final RelativeLayout layout2 = (RelativeLayout) view.findViewById(R.id.alreadyAttention);
+            final Button confirmToFollow = (Button) view.findViewById(R.id.confirmToFollow);
+            final Button cancelToFollow = (Button) view.findViewById(R.id.cancelToFollow);
             getusername.setText(foundUser.getUserName());
             userRank.setText(rankLevel.rank(foundUser.getLevel()));
-            layout1.setOnClickListener(new View.OnClickListener() {
+
+            confirmToFollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(count==0){
-                        layout1.setVisibility(View.GONE);
-                        layout2.setVisibility(View.VISIBLE);
-                        count = 1;
-                    }
-
-                    if(count==1){
-                        layout2.setVisibility(View.GONE);
-                        layout1.setVisibility(View.VISIBLE);
-                        count = 0;
+                    switch (v.getId()) {
+                        case R.id.confirmToFollow:
+                                confirmToFollow.setVisibility(View.GONE);
+                                cancelToFollow.setVisibility(View.VISIBLE);
+                                getUserAttention();
+                                break;
+                        case R.id.cancelToFollow:
+                                confirmToFollow.setVisibility(View.VISIBLE);
+                                cancelToFollow.setVisibility(View.GONE);
+                                count = 0;
+                                cancelUserAttention();
+                                break;
                     }
                 }
             });

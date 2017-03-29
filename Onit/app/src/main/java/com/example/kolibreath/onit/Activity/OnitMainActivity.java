@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.kolibreath.onit.Beans.UserAttentionBean;
+import com.example.kolibreath.onit.Beans.UserDongtaiListBean;
 import com.example.kolibreath.onit.Generics.Userinfo;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.R;
@@ -42,32 +43,36 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OnitMainActivity extends AppCompatActivity {
 
-    private int[] userList;
+
+    //userInfo类用于显示界面上有的评论数目 点赞数 之类的
     private Userinfo userinfo;
     //用户关注的其他用户的列表
     private List<Integer> userAttentionList;
+    private ListView listView;
+    //暂时用来存放用户所关注的对象 只是一个例子 关注的对象在主方法中手动添加的
+    private List<String > tempUserList = new ArrayList<>();
+    //跟剧api 是通过查找用户的名字去得到用户的任务id 再通过用户的任务id去找到用户的任务
+    //储存查找到的用户的id 一个用户可能有过个任务 所以还要写一个list储存 对应的user 对应的
+    private List<Integer> tempDongtaiId = new ArrayList<>();
+
+    //或者直接调用这个接口 获取用户的timeline 获取用户的list
+    UserMainActivity usermain = new UserMainActivity();
+
+    private void addToUserList(){
+        String users[] = {"ybao","fuck","test"};
+        for(int i=0;i<3;i++){
+            tempUserList.add(users[i]);
+        }
+    }
 
     //ip
     Retrofit retrofit ;
     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-
     ServiceInterface si;
 
-    private void getUserAttetionUserList(){
-        Call<UserAttentionBean> call = si.getUserAttentionList(App.storedUsername);
-        call.enqueue(new Callback<UserAttentionBean>() {
-            @Override
-            public void onResponse(Call<UserAttentionBean> call, Response<UserAttentionBean> response) {
-                UserAttentionBean bean = response.body();
-                userList = bean.getUsers_ids();
-            }
+    //获取当前用户所关注的其他用户的id
+    //id 获取失败暂时使用自己写的id代替
 
-            @Override
-            public void onFailure(Call<UserAttentionBean> call, Throwable t) {
-
-            }
-        });
-    }
     private List<Userinfo> userinfolist = new ArrayList<>();
 
     private void initWiget() {
@@ -75,6 +80,9 @@ public class OnitMainActivity extends AppCompatActivity {
         FloatingActionButton firstFAB = (FloatingActionButton) findViewById(R.id.firstFAB);
         TextView dateHere = (TextView) findViewById(R.id.dateHere);
         dateHere.setText(getDate());
+
+        listView = (ListView) findViewById(R.id.uesrDongTaiList);
+        listView.setVerticalScrollBarEnabled(false);
 
         final FloatingActionButton secondFAB = (FloatingActionButton) findViewById(R.id.secondFAB);
         final FloatingActionButton thirdFAb = (FloatingActionButton) findViewById(R.id.thirdFAB);
@@ -136,10 +144,9 @@ public class OnitMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onitdongtai);
-        listView = (ListView) findViewById(R.id.uesrDongTaiList);
-        listView.setVerticalScrollBarEnabled(false);
 
         initWiget();
+        addToUserList();
 
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
@@ -149,6 +156,9 @@ public class OnitMainActivity extends AppCompatActivity {
                 .client(client)
                 .build();
         si = retrofit.create(ServiceInterface.class);
+
+       // getUserAttetionUserList();
+        // getUserDongtaiListAsUserName();
 
     }
 
@@ -211,6 +221,47 @@ public class OnitMainActivity extends AppCompatActivity {
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         datestr = format.format(date);
         return datestr;
+    }
+
+    //查找用户及其关注的其他用户的id 返回id列表
+    private void getUserAttetionUserList(){
+        Call<UserAttentionBean> call = si.getUserAttentionList(App.storedUsername,App.storedUserToken);
+        call.enqueue(new Callback<UserAttentionBean>() {
+            @Override
+            public void onResponse(Call<UserAttentionBean> call, Response<UserAttentionBean> response) {
+                UserAttentionBean bean = response.body();
+                Log.d("userListID","fuck");
+            }
+
+            @Override
+            public void onFailure(Call<UserAttentionBean> call, Throwable t) {
+                t.printStackTrace();
+                Log.d("getUserId", "onFailure: ");
+            }
+        });
+    }
+
+    //获取用户关注和自己的任务id 每一次使用完了就清空list
+    private void getUserDongtaiListAsUserName(){
+        String user = new String();
+       for(int i=0;i<3;i++){
+           user = tempUserList.get(i);
+           Call<UserDongtaiListBean> call = si.getUserDongtaiList(user,App.storedUserToken);
+           call.enqueue(new Callback<UserDongtaiListBean>() {
+               @Override
+               public void onResponse(Call<UserDongtaiListBean> call, Response<UserDongtaiListBean> response) {
+                   UserDongtaiListBean bean = response.body();
+                   tempDongtaiId = bean.getResults();
+                   //查看单条任务
+                   Log.d("get user id list ", "onResponse: ");
+               }
+
+               @Override
+               public void onFailure(Call<UserDongtaiListBean> call, Throwable t) {
+                   Log.d("not get user id list", "onFailure: ");
+               }
+           });
+       }
     }
 
     class UserInfoAdapter extends ArrayAdapter<Userinfo> {

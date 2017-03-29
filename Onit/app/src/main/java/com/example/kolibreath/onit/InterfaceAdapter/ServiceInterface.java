@@ -8,6 +8,8 @@ import com.example.kolibreath.onit.Beans.LoginUserBean;
 import com.example.kolibreath.onit.Beans.RegisterBean;
 import com.example.kolibreath.onit.Beans.SingleDongtaiBean;
 import com.example.kolibreath.onit.Beans.UserAttentionBean;
+import com.example.kolibreath.onit.Beans.UserCommentBean;
+import com.example.kolibreath.onit.Beans.UserDongtaiListBean;
 import com.example.kolibreath.onit.Beans.UserProfileBean;
 import com.example.kolibreath.onit.Generics.LoginUser;
 import com.example.kolibreath.onit.Generics.RegisterUser;
@@ -20,6 +22,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -28,15 +31,28 @@ import retrofit2.http.Query;
 
 public interface ServiceInterface {
 
-    //获取用户关注的用户任务的id
-    //暂时设置一些关注“假”关注用户
+    //删除一个评论
+    //@DELETE("/api/comment/delete_comment/")
+    //Call<voidClass>
+    //添加或者新建一个评论
+    @POST("/api/comment/create_comment/")
+    Call<voidClass> createNewComments(@Body String text);
+    //获取其他用户给的评论
+    @GET("/api/comment/get_comments/")
+    Call<UserCommentBean> getUserComment(@Query("username") String username);
+
+    //获取用户关注的用户和自己的任务idlist
+    @GET("/api/task/friends_timeline/")
+    Call<UserDongtaiListBean> getUserDongtaiList(@Query("username")String username,
+                                                 @Query("token")String token);
 
     //在OnitMainActivity界面显示用户所关注的用户的列表
     @GET("/api/friendship/user_following/")
-    Call<UserAttentionBean> getUserAttentionList(@Query("username") String username);
+    Call<UserAttentionBean> getUserAttentionList(@Query("username") String username,
+                                                 @Query("token")String token);
     //取消关注某一个用户 貌似目前只能在关注页面确定是不是取消关注这个用户
     @DELETE("/api/friendship/destroy_friendship/")
-    Call<voidClass> cancelUserAttension(@Query("username") String username);
+    Call<voidClass> cancelUserAttension(@Path("username") String username);
 
     //关注一个用户 用关注一个用户于在搜索界面点击关注之后
     @GET("/api/friendship/create_friendship/")

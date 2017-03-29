@@ -4,6 +4,7 @@ package com.example.kolibreath.onit.Generics;
  * Created by kolibreath on 2017/2/12.
  */
 
+//用于显示用户的评论的信息
 public class CommentClass {
     private String commentUserName;
     private String commentContents;
