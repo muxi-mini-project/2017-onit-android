@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,6 +22,7 @@ import com.example.kolibreath.onit.Beans.UserDongtaiListBean;
 import com.example.kolibreath.onit.Generics.Userinfo;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.R;
+import com.example.kolibreath.onit.Utils.ActivityContainer;
 import com.example.kolibreath.onit.Utils.App;
 
 import java.text.SimpleDateFormat;
@@ -43,7 +45,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OnitMainActivity extends AppCompatActivity {
 
-
+    private ActivityContainer container;
     //userInfo类用于显示界面上有的评论数目 点赞数 之类的
     private Userinfo userinfo;
     //用户关注的其他用户的列表
@@ -144,6 +146,14 @@ public class OnitMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onitdongtai);
+        ActivityContainer.getInstance().addActivity(this);
+        final Button button = (Button) findViewById(R.id.removeActivity);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityContainer.getInstance().removeActivity(OnitMainActivity.this);
+            }
+        });
 
         initWiget();
         addToUserList();

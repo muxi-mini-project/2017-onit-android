@@ -156,6 +156,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
         getUserProfile();
         getUserDongtaiId();
+        transUsernameFromUid();
         }
 
         class OwnOnlineAdapter extends ArrayAdapter<OwnOnlineDongtai> {
@@ -317,25 +318,18 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //cursor = dbReader.rawQuery("select * from " + NotesDB.TABLE_NAME,null);
-                //cursor.moveToPosition(position);
                 Intent i = new Intent(UserMainActivity.this, SelectActivity.class);
-                // i.putExtra(NotesDB.ID,cursor.getInt(cursor.getColumnIndex(NotesDB.ID)));
-                //i.putExtra(NotesDB.CONTENT,cursor.getString(cursor.getColumnIndex(NotesDB.CONTENT)));
-                //i.putExtra(NotesDB.TIME,cursor.getString(cursor.getColumnIndex(NotesDB.TIME)));
-
-                //获取了数组中的第五个数字
-                SingleDongtaiBean bean = selectEachDongtai(idbean.getResult().get(position));
-                i.putExtra("text",bean.getText());
+                //直接把点击的任务的id传给下一个界面 在哪里请求一次
+                //Olist是排序之后的list
+                int dongTaiId = OList.get(position).getId();
+                i.putExtra("dongTaiId",dongTaiId);
                 startActivity(i);
             }
         });
 
     }
 
-
     private void changAvatar(){
-
         circleImageView = (CircleImageView) findViewById(R.id.user_avatar);
         Intent intent = getIntent();
         int bitmapSrc = intent.getIntExtra("key", R.drawable.java);
@@ -432,9 +426,6 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
     //position是任务的id
     private SingleDongtaiBean selectEachDongtai(final int position){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
                 Call<SingleDongtaiBean> call3 = si.getSingleDongtai(App.storedUsername,
                         idbean.getResult().get(position),
                         App.storedUserToken);
@@ -448,10 +439,22 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
                     }
                 });
-            }
-        }).start();
-
         return bean3;
+    }
+
+    private void  transUsernameFromUid(){
+        Call<String> call = si.transUserNameToUid(20);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.d("transformSuccess", "onResponse: ");
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("transformFailed", "onFailure: ");
+            }
+        });
     }
 
     private void getEachDongtai() {
@@ -566,6 +569,8 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int position = menuInfo.position;
         deleteListItem(OList.get(position).getId());
+        OList.remove(position);
+        lv.invalidateViews();
         return super.onContextItemSelected(item);
     }
     @Override

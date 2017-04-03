@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +26,7 @@ import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 import com.example.kolibreath.onit.R;
 import com.example.kolibreath.onit.Utils.App;
 import com.example.kolibreath.onit.Utils.RankLevel;
+import com.example.kolibreath.onit.Utils.SeverConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +59,6 @@ public class SearchforBBFActivity extends AppCompatActivity {
     RelativeLayout layout;
     private int count = 0;
 
-
-    //为什么没有接收到handler发送的消息
 
     private void initSearchView(){
         //设置searchView相关细节
@@ -102,7 +100,7 @@ public class SearchforBBFActivity extends AppCompatActivity {
          */
 
         //绑定界面出了问题
-        //layout = (RelativeLayout) findViewById(R.layout.activity_searchbbf);
+        layout = (RelativeLayout) findViewById(R.id.searchForBBF);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         layout = (RelativeLayout) findViewById(R.id.searchForBBF);
@@ -113,7 +111,9 @@ public class SearchforBBFActivity extends AppCompatActivity {
         call.enqueue(new Callback<voidClass>() {
             @Override
             public void onResponse(Call<voidClass> call, Response<voidClass> response) {
-                Log.d("attentionSuccess", "onResponse: ");
+                SeverConnection sc = new SeverConnection();
+                sc.processResultCode(response.code(),layout);
+                Snackbar.make(layout,"已关注",Snackbar.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<voidClass> call, Throwable t) {
@@ -128,8 +128,7 @@ public class SearchforBBFActivity extends AppCompatActivity {
         call.enqueue(new Callback<voidClass>() {
             @Override
             public void onResponse(Call<voidClass> call, Response<voidClass> response) {
-                Log.d("cancelHasBeenSaved", "onResponse: ");
-               // Snackbar.make().show();
+               Snackbar.make(layout,"已经取消关注",Snackbar.LENGTH_SHORT).show();
             }
 
             @Override

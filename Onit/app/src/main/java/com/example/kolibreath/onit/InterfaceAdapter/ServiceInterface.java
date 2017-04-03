@@ -31,9 +31,9 @@ import retrofit2.http.Query;
 
 public interface ServiceInterface {
 
-    //删除一个评论
-    //@DELETE("/api/comment/delete_comment/")
-    //Call<voidClass>
+    //username和uid转化的uid
+    @POST("/api/uid_to_un/")
+    Call<String> transUserNameToUid(@Body int uid);
     //添加或者新建一个评论
     @POST("/api/comment/create_comment/")
     Call<voidClass> createNewComments(@Body String text);

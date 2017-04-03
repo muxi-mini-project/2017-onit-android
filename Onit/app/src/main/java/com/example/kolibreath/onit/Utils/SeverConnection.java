@@ -1,5 +1,8 @@
 package com.example.kolibreath.onit.Utils;
 
+import android.support.design.widget.Snackbar;
+import android.widget.RelativeLayout;
+
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
 
 import okhttp3.OkHttpClient;
@@ -32,5 +35,13 @@ public class SeverConnection {
                 .client(client)
                 .build();
         si = retrofit.create(ServiceInterface.class);
+    }
+    //context
+    public  void processResultCode(int code, RelativeLayout layout){
+        if(code==200){
+            Snackbar.make(layout,"请求发送失败请重试",Snackbar.LENGTH_SHORT).show();
+
+        }
+
     }
 }
