@@ -156,7 +156,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
 
         getUserProfile();
         getUserDongtaiId();
-        transUsernameFromUid();
+     //   transUsernameFromUid();
         }
 
         class OwnOnlineAdapter extends ArrayAdapter<OwnOnlineDongtai> {
@@ -442,20 +442,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
         return bean3;
     }
 
-    private void  transUsernameFromUid(){
-        Call<String> call = si.transUserNameToUid(20);
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.d("transformSuccess", "onResponse: ");
-            }
 
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.d("transformFailed", "onFailure: ");
-            }
-        });
-    }
 
     private void getEachDongtai() {
             for (int i = 0; i < idbean.getResult().size(); i++) {
@@ -546,7 +533,7 @@ public class UserMainActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void deleteListItem(final int id){
-       Call<voidClass> call = si.deleteDongtai(id,App.storedUserToken);
+       Call<voidClass> call = si.deleteDongtai(id,App.storedUsername,App.storedUserToken);
         call.enqueue(new Callback<voidClass>() {
             @Override
             public void onResponse(Call<voidClass> call, Response<voidClass> response) {

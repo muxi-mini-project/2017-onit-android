@@ -9,13 +9,13 @@ import java.util.List;
 //存储用户关注的对象的列表
 public class UserAttentionBean {
 
-    private List<Integer> users_ids;
+    private List<Integer> user_ids;
 
-    public List<Integer> getUsers_ids() {
-        return users_ids;
+    public List<Integer> getUser_ids() {
+        return user_ids;
     }
 
-    public void setUsers_ids(List<Integer> users_ids) {
-        this.users_ids = users_ids;
+    public void setUser_ids(List<Integer> user_ids) {
+        this.user_ids = user_ids;
     }
 }

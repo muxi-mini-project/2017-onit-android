@@ -7,12 +7,14 @@ import com.example.kolibreath.onit.Beans.IdBean;
 import com.example.kolibreath.onit.Beans.LoginUserBean;
 import com.example.kolibreath.onit.Beans.RegisterBean;
 import com.example.kolibreath.onit.Beans.SingleDongtaiBean;
+import com.example.kolibreath.onit.Beans.StringBean;
 import com.example.kolibreath.onit.Beans.UserAttentionBean;
 import com.example.kolibreath.onit.Beans.UserCommentBean;
 import com.example.kolibreath.onit.Beans.UserDongtaiListBean;
 import com.example.kolibreath.onit.Beans.UserProfileBean;
 import com.example.kolibreath.onit.Generics.LoginUser;
 import com.example.kolibreath.onit.Generics.RegisterUser;
+import com.example.kolibreath.onit.Generics.Useid;
 import com.example.kolibreath.onit.Generics.UserDongtaiContent;
 import com.example.kolibreath.onit.Generics.voidClass;
 
@@ -33,7 +35,7 @@ public interface ServiceInterface {
 
     //username和uid转化的uid
     @POST("/api/uid_to_un/")
-    Call<String> transUserNameToUid(@Body int uid);
+    Call<StringBean> transUserNameToUid(@Body Useid useid);
     //添加或者新建一个评论
     @POST("/api/comment/create_comment/")
     Call<voidClass> createNewComments(@Body String text);
@@ -44,12 +46,12 @@ public interface ServiceInterface {
     //获取用户关注的用户和自己的任务idlist
     @GET("/api/task/friends_timeline/")
     Call<UserDongtaiListBean> getUserDongtaiList(@Query("username")String username,
-                                                 @Query("token")String token);
+                                                 @Header("token") String token);
 
     //在OnitMainActivity界面显示用户所关注的用户的列表
     @GET("/api/friendship/user_following/")
     Call<UserAttentionBean> getUserAttentionList(@Query("username") String username,
-                                                 @Query("token")String token);
+                                                 @Header("token") String token);
     //取消关注某一个用户 貌似目前只能在关注页面确定是不是取消关注这个用户
     @DELETE("/api/friendship/destroy_friendship/")
     Call<voidClass> cancelUserAttension(@Path("username") String username);
@@ -58,7 +60,7 @@ public interface ServiceInterface {
     @GET("/api/friendship/create_friendship/")
     Call<voidClass> getUserAttention(@Query("username")String username,
                                      @Query("current_user")String current_user,
-                                     @Query("token") String token);
+                                     @Header("token") String token);
 
     //用户的好友关注接口
     @GET("/api/friendship/user_following/")
@@ -72,6 +74,7 @@ public interface ServiceInterface {
     //用户任务删除接口
     @DELETE("/api/task/delete_task/")
     Call<voidClass> deleteDongtai(@Query("id") int id,
+                                  @Query("username") String username,
                                   @Header("token") String token);
     //可以获得一个动态id的list
     @GET("api/task/user_timeline/")

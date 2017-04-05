@@ -26,7 +26,7 @@ public class OwnOnlineDongtai implements Comparator {
         this.id = id;
     }
 
-    public OwnOnlineDongtai(){}
+     public OwnOnlineDongtai(){}
 
     public String getDeadline(){
         return deadline;

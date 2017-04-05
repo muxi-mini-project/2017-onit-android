@@ -81,8 +81,7 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
 
-        <ImageView
-
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/userAvatar"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
