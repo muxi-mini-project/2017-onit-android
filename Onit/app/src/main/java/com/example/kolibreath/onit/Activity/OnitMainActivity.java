@@ -21,6 +21,7 @@ import com.example.kolibreath.onit.Beans.SingleDongtaiBean;
 import com.example.kolibreath.onit.Beans.StringBean;
 import com.example.kolibreath.onit.Beans.UserAttentionBean;
 import com.example.kolibreath.onit.Beans.UserDongtaiListBean;
+import com.example.kolibreath.onit.Generics.FollowedUserList;
 import com.example.kolibreath.onit.Generics.Useid;
 import com.example.kolibreath.onit.Generics.Userinfo;
 import com.example.kolibreath.onit.InterfaceAdapter.ServiceInterface;
@@ -41,6 +42,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.kolibreath.onit.Utils.App.storedUserToken;
 
 /**
  * Created by kolibreath on 2017/2/1.
@@ -64,6 +67,9 @@ public class OnitMainActivity extends AppCompatActivity {
     private List<Integer> followedUserDongtaiIdList = new ArrayList<>();
 
     private List<Userinfo> theKeyList = new ArrayList<>();
+
+    //match两个list
+    private List<FollowedUserList> matchFollowedUserList = new ArrayList<>();
 
 
 
@@ -171,7 +177,7 @@ public class OnitMainActivity extends AppCompatActivity {
 
         //获取用户关注的人的id >>获取用户关注的人的用户名
         getUserAttetionUserList();
-        
+
     }
 
     private int resultStatus(String startTime, String stopTime, String timethis) {
@@ -237,7 +243,8 @@ public class OnitMainActivity extends AppCompatActivity {
 
     //获取用户的id>>id全部转化为username>>usename作为参数去取得任务表
     private void getUserAttetionUserList(){
-        Call<UserAttentionBean> call = si.getUserAttentionList(App.storedUsername,App.storedUserToken);
+        Log.d("process!!", "getUserAttetionUserList: ");
+        Call<UserAttentionBean> call = si.getUserAttentionList(App.storedUsername, storedUserToken);
         call.enqueue(new Callback<UserAttentionBean>() {
             @Override
             public void onResponse(Call<UserAttentionBean> call, Response<UserAttentionBean> response) {
@@ -245,7 +252,6 @@ public class OnitMainActivity extends AppCompatActivity {
                 followedUserId = bean.getUser_ids();
                 getUserDongtaiListAsUserName(followedUserId);
             }
-
             @Override
             public void onFailure(Call<UserAttentionBean> call, Throwable t) {
                 t.printStackTrace();
@@ -256,6 +262,7 @@ public class OnitMainActivity extends AppCompatActivity {
     //获取用户关注和自己的任务id
     //讲用户的id和username转化
     private void getUserDongtaiListAsUserName(final List<Integer> followedUseId) {
+        Log.d("process!!", "getUserDongtaiListAsUserName: ");
         final int size = followedUseId.size();
         for (int i = 0; i<size; i++) {
             Useid useid = new Useid(followedUserId.get(i));
@@ -268,11 +275,10 @@ public class OnitMainActivity extends AppCompatActivity {
                     String username = bean.getUsername();
                     followedUsername.add(username);
                     if(finalI ==size-1){
-                        Log.d("test answer", followedUsername.get(0));
+                        Log.d("followedUsername", followedUsername.size()+"");
                         getFollowedUserDongtai(followedUsername);
                     }
                 }
-
                 @Override
                 public void onFailure(Call<StringBean> call, Throwable t) {
                 }
@@ -281,22 +287,26 @@ public class OnitMainActivity extends AppCompatActivity {
     }
 
     //获取自己和用户关注的用户的任务的id list 通过用户名查询
-    private void getFollowedUserDongtai( List<String> followedUsername){
-        final int size = followedUsername.size()-1;
+    private void getFollowedUserDongtai(final List<String> followedUsername){
+        Log.d("process!!", "getFollowedUserDongtai: ");
+        final int size = followedUsername.size();
         for(int i=0;i<size;i++){
             Call<UserDongtaiListBean> call = si.getUserDongtaiList("ybao",App.storedUserToken);
             final int finalI = i;
+            final int finalI1 = i;
             call.enqueue(new Callback<UserDongtaiListBean>() {
                 @Override
                 public void onResponse(Call<UserDongtaiListBean> call, Response<UserDongtaiListBean> response) {
                     UserDongtaiListBean bean = response.body();
+                    //list >> 任务id
                     followedUserDongtaiIdList = bean.getResults();
-                    Log.d("testbean", "onResponse: ");
+                    String username = followedUsername.get(finalI1);
+                    FollowedUserList followedUserList = new FollowedUserList(username,followedUserDongtaiIdList);
+                    matchFollowedUserList.add(followedUserList);
                     if(finalI ==size-1){
-                    getSingleDongtai(followedUserDongtaiIdList);
+                        getSingleDongtai(matchFollowedUserList);
                     }
                 }
-
                 @Override
                 public void onFailure(Call<UserDongtaiListBean> call, Throwable t) {
                     t.printStackTrace();
@@ -306,37 +316,48 @@ public class OnitMainActivity extends AppCompatActivity {
     }
 
     //获取id所对应的单条任务的id
-    private void getSingleDongtai(List<Integer> list){
+    private void getSingleDongtai(List<FollowedUserList> list) {
+        Log.d("process!!", "getSingleDongtai: ");
+        //list中只有连个关注对象
         final int size = list.size();
-        for(int i=0;i<size;i++){
-            Call<SingleDongtaiBean> call = si.getSingleDongtai("ybao",20,App.storedUserToken);
-            final int finalI = i;
-            call.enqueue(new Callback<SingleDongtaiBean>() {
-                @Override
-                public void onResponse(Call<SingleDongtaiBean> call, Response<SingleDongtaiBean> response) {
-                    SingleDongtaiBean bean = response.body();
-                    Userinfo info = new Userinfo(R.drawable.python,bean.getCreated_at(),bean.getText(),
-                            "1","2",bean.getDeadline(),1,"fuck");
-                    userinfolist.add(info);
-                    if(finalI ==size-1){
-                        Log.d("userinfosize",userinfolist.size()+"");
-                        Context context = OnitMainActivity.this;
-                        UserInfoAdapter adapter = new UserInfoAdapter(context,R.layout.onitdongtai_item,userinfolist);
-                        listView.setAdapter(adapter);
+        for (int i = 0; i < size; i++) {
+            //获取储存的username对应的任务id
+            final String username = list.get(i).getUsername();
+            Log.d("process!!", username);
+            List<Integer> dongtaiList = list.get(i).getMatchedId();
+            Log.d("process!!", "getSingleDongtai: list size" + dongtaiList.size());
+            Log.d("process!!", "getSingleDongtai: " + dongtaiList.get(0));
+            int size2 = dongtaiList.size();
+               for (int j = 0; j < size2; j++) {
+                Call<SingleDongtaiBean> call = si.getSingleDongtai(username, dongtaiList.get(j), storedUserToken);
+                final int finalI = i;
+                call.enqueue(new Callback<SingleDongtaiBean>() {
+                    @Override
+                    public void onResponse(Call<SingleDongtaiBean> call, Response<SingleDongtaiBean> response) {
+                        SingleDongtaiBean bean = response.body();
+                        String commentCount = bean.getComments_count()+"";
+                        //这个status是n，，，
+                        //int status = Integer.parseInt(bean.getStatus());
+                        Userinfo info = new Userinfo(R.drawable.python, bean.getCreated_at(), bean.getText(),
+                                commentCount, "2", bean.getDeadline(),1, username);
+                        Log.d("final success", "onResponse: ");
+                        userinfolist.add(info);
+                        if (finalI == size - 1) {
+                            Log.d("userinfosize", userinfolist.size() + "");
+                            Context context = OnitMainActivity.this;
+                            UserInfoAdapter adapter = new UserInfoAdapter(context, R.layout.onitdongtai_item, userinfolist);
+                            listView.setAdapter(adapter);
+                        }
                     }
-                }
-
-                @Override
-                public void onFailure(Call<SingleDongtaiBean> call, Throwable t) {
-
-                }
-            });
-        }
+                    @Override
+                    public void onFailure(Call<SingleDongtaiBean> call, Throwable t) {
+                        Log.d("final fail", "onResponse: ");
+                    }
+                });
+            }
+            }
     }
 
-    private void setToAdapter(List<Userinfo>list){
-
-    }
 
     class UserInfoAdapter extends ArrayAdapter<Userinfo> {
 
