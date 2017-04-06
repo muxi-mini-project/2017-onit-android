@@ -175,11 +175,14 @@ public class OnitMainActivity extends AppCompatActivity {
                 .build();
         si = retrofit.create(ServiceInterface.class);
 
-        //获取用户关注的人的id >>获取用户关注的人的用户名
+        //onRefreshList();
         getUserAttetionUserList();
-
     }
 
+    //在关注新的好友重新回到这个页面时刷新
+    private void onRefreshList(){
+        //获取用户关注的人的id >>获取用户关注的人的用户名
+    }
     private int resultStatus(String startTime, String stopTime, String timethis) {
         int status = 0;
         boolean flag = false;
@@ -262,7 +265,7 @@ public class OnitMainActivity extends AppCompatActivity {
     //获取用户关注和自己的任务id
     //讲用户的id和username转化
     private void getUserDongtaiListAsUserName(final List<Integer> followedUseId) {
-        Log.d("process!!", "getUserDongtaiListAsUserName: ");
+        Log.d("yuck size of userid", followedUseId.size()+"");
         final int size = followedUseId.size();
         for (int i = 0; i<size; i++) {
             Useid useid = new Useid(followedUserId.get(i));
@@ -275,7 +278,6 @@ public class OnitMainActivity extends AppCompatActivity {
                     String username = bean.getUsername();
                     followedUsername.add(username);
                     if(finalI ==size-1){
-                        Log.d("followedUsername", followedUsername.size()+"");
                         getFollowedUserDongtai(followedUsername);
                     }
                 }
@@ -288,7 +290,8 @@ public class OnitMainActivity extends AppCompatActivity {
 
     //获取自己和用户关注的用户的任务的id list 通过用户名查询
     private void getFollowedUserDongtai(final List<String> followedUsername){
-        Log.d("process!!", "getFollowedUserDongtai: ");
+        Log.d("yuck", followedUsername.size()+"");
+        Log.d("yuck",followedUsername.get(0));
         final int size = followedUsername.size();
         for(int i=0;i<size;i++){
             Call<UserDongtaiListBean> call = si.getUserDongtaiList("ybao",App.storedUserToken);
@@ -318,7 +321,7 @@ public class OnitMainActivity extends AppCompatActivity {
     //获取id所对应的单条任务的id
     private void getSingleDongtai(List<FollowedUserList> list) {
         Log.d("process!!", "getSingleDongtai: ");
-        //list中只有连个关注对象
+        Log.d("process!", "getSingleDongtai: ");
         final int size = list.size();
         for (int i = 0; i < size; i++) {
             //获取储存的username对应的任务id
@@ -358,6 +361,11 @@ public class OnitMainActivity extends AppCompatActivity {
             }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onRefreshList();
+    }
 
     class UserInfoAdapter extends ArrayAdapter<Userinfo> {
 

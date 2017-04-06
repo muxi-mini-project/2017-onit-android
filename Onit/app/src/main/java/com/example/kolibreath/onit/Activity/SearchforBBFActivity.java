@@ -52,6 +52,7 @@ public class SearchforBBFActivity extends AppCompatActivity {
     ServiceInterface si;
     SearchView searchView ;
     String queryText;
+    String queryText2;
     List<FoundUser> friendsList = new ArrayList<>();
     ListView listView;
     FriendsBean bean;
@@ -76,6 +77,7 @@ public class SearchforBBFActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 queryText = query;
+                queryText2 = query;
                 SearchForFriends();
                 friendsList.clear();
                 return false;
@@ -107,7 +109,7 @@ public class SearchforBBFActivity extends AppCompatActivity {
     }
 
     private void getUserAttention(){
-        Call<voidClass> call = si.getUserAttention("ybao","test",App.storedUserToken);
+        Call<voidClass> call = si.getUserAttention(queryText,"test",App.storedUserToken);
         call.enqueue(new Callback<voidClass>() {
             @Override
             public void onResponse(Call<voidClass> call, Response<voidClass> response) {
@@ -124,7 +126,7 @@ public class SearchforBBFActivity extends AppCompatActivity {
 
     private void cancelUserAttention(){
         //这里都是假设关注和取消关注的用户都是ybao
-        Call<voidClass> call = si.cancelUserAttension("ybao");
+        Call<voidClass> call = si.cancelUserAttension(queryText2);
         call.enqueue(new Callback<voidClass>() {
             @Override
             public void onResponse(Call<voidClass> call, Response<voidClass> response) {
@@ -222,16 +224,18 @@ public class SearchforBBFActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     switch (v.getId()) {
                         case R.id.confirmToFollow:
-                                confirmToFollow.setVisibility(View.GONE);
-                                cancelToFollow.setVisibility(View.VISIBLE);
+                            if (count == 0) {
+                                confirmToFollow.setBackgroundResource(R.drawable.confirm_attention_at__search_friends);
                                 getUserAttention();
+                                count =1;
                                 break;
-                        case R.id.cancelToFollow:
-                                confirmToFollow.setVisibility(View.VISIBLE);
-                                cancelToFollow.setVisibility(View.GONE);
-                                count = 0;
+                            }
+                            if(count ==1) {
+                                confirmToFollow.setBackgroundResource(R.drawable.already_attention);
                                 cancelUserAttention();
+                                count = 0;
                                 break;
+                            }
                     }
                 }
             });
